@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
 from scrapy.spider import BaseSpider
 from scrapy.selector import HtmlXPathSelector
 from house.items import HouseItem
 from urlparse import urljoin
 from scrapy.http import Request
+import unicodedata
+
 
 class SapoSpider(BaseSpider):
   name = "sapo"
@@ -25,7 +28,7 @@ class SapoSpider(BaseSpider):
       print "End page"
     else:
       next_url = urljoin(response.url,next_page)
-      #yield Request(next_url,callback=self.parse)
+      yield Request(next_url,callback=self.parse)
 
   def parseHouse(self, response):
     hxs = HtmlXPathSelector(response)
@@ -34,10 +37,9 @@ class SapoSpider(BaseSpider):
     item['address'] = hxs.select('//div[contains(@class, "detaiHeaderLocation")]/text()')[0].extract()
     item['link'] = response.url
     item['desc'] = hxs.select('//div[contains(@class, "detailDescription")]/h2/text()').extract()
-    item['price'] = hxs.select('//div[contains(@class, "detailHeaderPriceValue")]/text()')[0].extract()
+    item['price'] = hxs.select('//div[contains(@class, "detailHeaderPriceValue")]/text()')[0].extract().replace(u"€","").strip()
     item['state'] = hxs.select('//div[contains(@class, "detailInfo")]/p')[0].select('span/text()').extract()
     item['publication'] = hxs.select('//div[contains(@class, "detailInfo")]/p')[4].select('span/text()').extract()
     item['image_urls'] = hxs.select('//a[contains(@id, "SmallFotos")]/@onclick').extract()
 
     yield item
-
