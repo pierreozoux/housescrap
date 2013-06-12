@@ -14,6 +14,22 @@ gem install serve-this
 Usage
 =====
 ````
-scrapy crawl sapo -o item.csv -t csv
+scrapy crawl sapo -o item_sapo.csv -t csv
+scrapy crawl custojusto -o item_custojusto.csv -t csv
 serve-this
+````
+
+Hack
+====
+How to add a new crawler : copy one from house/spider
+Start a scrapy shell : 
+````
+scrapy shell http://www.custojusto.pt/Lisboa\?ca\=14_s\&th\=1\&q\=\&cg\=1020\&w\=114%3A213\&st\=u\&ps\=3\&pe\=5\&ros\=3\&roe\=5\&ss\=\&se\=\&sl\=
+
+# and try to find the right div with the help of inscpect element of chrome and/or Firebug
+# and replace in the python file of the spider
+>>> houses = hxs.select('//div[contains(@class, "lista")]')
+>>> house = houses[0]
+>>> house.extract()
+....
 ````
