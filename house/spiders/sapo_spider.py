@@ -38,8 +38,8 @@ class SapoSpider(BaseSpider):
     item['link'] = response.url
     item['desc'] = hxs.select('//div[contains(@class, "detailDescription")]/h2/text()').extract()
     item['price'] = hxs.select('//div[contains(@class, "detailHeaderPriceValue")]/text()')[0].extract().replace(u"€","").strip()
-    item['state'] = hxs.select('//div[contains(@class, "detailInfo")]/p')[0].select('span/text()').extract()
-    item['publication'] = hxs.select('//div[contains(@class, "detailInfo")]/p')[4].select('span/text()').extract()
+    item['state'] = hxs.select('//div[contains(@class, "detailInfo")]/p/*[contains(text(),"Estado")]').select('../span/text()').extract()
+    item['publication'] = hxs.select('//div[contains(@class, "detailInfo")]/p/*[contains(text(),"Publicado")]').select('../span/text()').extract()
     item['image_urls'] = hxs.select('//a[contains(@id, "SmallFotos")]/@onclick').extract()
 
     yield item
