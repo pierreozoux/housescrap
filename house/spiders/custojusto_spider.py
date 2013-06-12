@@ -1,31 +1,26 @@
-# http://www.custojusto.pt/Lisboa?ca=14_s&th=1&q=&cg=1020&w=114%3A213&st=u&ps=3&pe=5&ros=3&roe=5&ss=&se=&sl=
-
 # -*- coding: utf-8 -*-
 from scrapy.spider import BaseSpider
 from scrapy.selector import HtmlXPathSelector
 from house.items import HouseItem
 from urlparse import urljoin
 from scrapy.http import Request
-import unicodedata
 
-
-class SapoSpider(BaseSpider):
-  name = "sapo"
-  allowed_domains = ["casa.sapo.pt"]
+class CustojustoSpider(BaseSpider):
+  name = "custojusto"
+  allowed_domains = ["custojusto.pt"]
   start_urls = [
-      "http://casa.sapo.pt/Alugar/Apartamentos/Lisboa/?sa=11&aop=1&gp=450&lp=300&mpr=1,2,3,4&or=10&pn=1"
+      "http://www.custojusto.pt/Lisboa?ca=14_s&th=1&q=&cg=1020&w=114:213&st=u&ps=3&pe=5&ros=3&roe=5&ss=&se="
   ]
-
 
   def parse(self, response):
     hxs = HtmlXPathSelector(response)
-    houses = hxs.select('//div[contains(@id, "ctl00_MC_result")]')
+    houses = hxs.select('//div[contains(@class, "lista")]')
     for house in houses:
-      link = house.select('span/a/@href')[0].extract()
+      link = house.select('div/a/@href').extract()[0]
       yield Request(link,callback=self.parseHouse)
   
     try:
-      next_page = hxs.select('//a[contains(@class, "paginadorNext")]/@href').extract()[0]
+      next_page = hxs.select('//div[contains(@id, "content_footer")]/div/div/*[contains(text(),"Seguinte")]/@href').extract()[0]
     except:
       print "End page"
     else:
@@ -35,13 +30,38 @@ class SapoSpider(BaseSpider):
   def parseHouse(self, response):
     hxs = HtmlXPathSelector(response)
     item = HouseItem()
-    item['title'] = hxs.select('//div[contains(@class, "detaiHeaderProperty")]/text()')[0].extract()
-    item['address'] = hxs.select('//div[contains(@class, "detaiHeaderLocation")]/text()')[0].extract()
+    item['title'] =hxs.select('//h1[contains(@class, "long_subject")]/text()').extract()
+    Concelho = hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Concelho")]').select('../text()').extract()[1].strip()
+    Freguesia = ""
+    try:
+      Freguesia = hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Freguesia")]').select('../text()').extract()[1].strip()
+    except:
+      print "No Freguesia"
+
+    item['address'] = Concelho + ' ' + Freguesia
     item['link'] = response.url
-    item['desc'] = hxs.select('//div[contains(@class, "detailDescription")]/h2/text()').extract()
-    item['price'] = hxs.select('//div[contains(@class, "detailHeaderPriceValue")]/text()')[0].extract().replace(u"€","").strip()
-    item['state'] = hxs.select('//div[contains(@class, "detailInfo")]/p')[0].select('span/text()').extract()
-    item['publication'] = hxs.select('//div[contains(@class, "detailInfo")]/p')[4].select('span/text()').extract()
-    item['image_urls'] = hxs.select('//a[contains(@id, "SmallFotos")]/@onclick').extract()
+    item['size'] = hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Tipologia")]').select('../text()').extract()[1].strip()
+
+    descs = hxs.select('//div[contains(@class, "body_text")]/text()').extract()
+    item['desc'] = ""
+    for desc in descs:
+      item['desc'] = item['desc'] + desc
+
+    item['price'] = hxs.select('//span[contains(@class, "coolprice")]/text()').extract()[0].strip()
+    item['publication'] = hxs.select('//p[contains(@class,"right")]/text()').extract()[1].strip()
+
+    image_from_script = hxs.select('//div[contains(@id, "slider")]/script/text()').extract()
+    images_urls = image_from_script[0].split('[')[1].split(',')
+    item['lng'] = images_urls[-1].split("'")[0]
+    item['lat'] = images_urls[-2].split('C')[-1]
+
+    images_urls.remove(images_urls[-1])
+    images_urls.remove(images_urls[-1])
+    images_urls.remove(images_urls[-1])
+
+
+    item['image_urls'] = []
+    for image_url in images_urls:
+     item['image_urls'].append(image_url.replace("'",""))
 
     yield item
