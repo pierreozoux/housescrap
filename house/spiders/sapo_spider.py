@@ -41,7 +41,7 @@ class SapoSpider(BaseSpider):
     item['address'] = hxs.select('//div[contains(@class, "detaiHeaderLocation")]/text()')[0].extract()
     item['link'] = response.url
     item['desc'] = hxs.select('//div[contains(@class, "detailDescription")]/h2/text()').extract()
-    item['price'] = hxs.select('//div[contains(@class, "detailHeaderPriceValue")]/text()')[0].extract().replace(u"€","").strip()
+    item['price'] = hxs.select('//div[contains(@class, "detailHeaderPriceValue")]/text()')[0].extract().strip()
     item['state'] = hxs.select('//div[contains(@class, "detailInfo")]/p/*[contains(text(),"Estado")]').select('../span/text()').extract()
     item['publication'] = hxs.select('//div[contains(@class, "detailInfo")]/p/*[contains(text(),"Publicado")]').select('../span/text()').extract()
     item['size'] = item['title'].split(",")[0].split()[-1]
