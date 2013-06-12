@@ -12,9 +12,6 @@ SPIDER_MODULES = ['house.spiders']
 NEWSPIDER_MODULE = 'house.spiders'
 
 ITEM_PIPELINES = [
-  'house.pipelines.SizePipeline',
-  'house.pipelines.ImagePipeline',
-  'house.pipelines.AddressPipeline',
   ]
 
 IMAGES_STORE = '/Users/pierreozoux/Documents/scrapy/house/images'
