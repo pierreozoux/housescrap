@@ -32,7 +32,7 @@ class SapoSpider(BaseSpider):
       print "End page"
     else:
       next_url = urljoin(response.url,next_page)
-      yield Request(next_url,callback=self.parse)
+      #yield Request(next_url,callback=self.parse)
 
   def parseHouse(self, response):
     hxs = HtmlXPathSelector(response)
