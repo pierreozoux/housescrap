@@ -5,14 +5,15 @@ A lot of house finder are just crap, right? So, let's scrap their houses and dis
 
 Installation
 ============
-  
-  sudo easy_install pip
-  sudo pip install Scrapy
-  sudo pip install pil
-  gem install serve-this
-
+````
+sudo easy_install pip
+sudo pip install Scrapy
+sudo pip install pil
+gem install serve-this
+````
 Usage
 =====
-
-  scrapy crawl sapo -o item.csv -t csv
-  serve-this
+````
+scrapy crawl sapo -o item.csv -t csv
+serve-this
+````
