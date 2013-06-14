@@ -3,6 +3,8 @@ housescrap
 
 A lot of house finder are just crap, right? So, let's scrap their houses and display them in a proper map!!
 
+![picture](https://raw.github.com/pierreozoux/housescrap/master/assets/readme.jpg)
+
 Installation
 ============
 ````
