@@ -24,6 +24,7 @@ Usage
 Hack
 ====
 How to add a new crawler : copy one from house/spider
+
 Start a scrapy shell : 
 ````
 scrapy shell http://www.custojusto.pt/Lisboa\?ca\=14_s\&th\=1\&q\=\&cg\=1020\&w\=114%3A213\&st\=u\&ps\=3\&pe\=5\&ros\=3\&roe\=5\&ss\=\&se\=\&sl\=
