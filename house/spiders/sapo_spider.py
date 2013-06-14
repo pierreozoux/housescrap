@@ -9,6 +9,8 @@ import json
 import urllib2
 import urllib
 import urlparse
+import httplib2
+
 
 
 class SapoSpider(BaseSpider):
@@ -17,7 +19,6 @@ class SapoSpider(BaseSpider):
   start_urls = [
       "http://casa.sapo.pt/Alugar/Apartamentos/Lisboa/?sa=11&aop=1&gp=450&lp=300&mpr=1,2,3,4&or=10&pn=1"
   ]
-
 
   def parse(self, response):
     hxs = HtmlXPathSelector(response)
@@ -52,8 +53,8 @@ class SapoSpider(BaseSpider):
     for image_url in image_urls:
       item['image_urls'].append(re.findall(r'\'(.+?)\'',image_url)[0])
 
-    url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + item['address'] + "&sensor=true"
-    result = json.load(urllib2.urlopen(url.replace(" ","%20")))['results'][0]
+    iri = "http://maps.googleapis.com/maps/api/geocode/json?address=" + item['address'] + "&sensor=true"
+    result = json.load(urllib2.urlopen(httplib2.iri2uri(iri).replace(" ","%20")))['results'][0]
     item['lat'] = result['geometry']['location']['lat']
     item['lng'] = result['geometry']['location']['lng']
     
