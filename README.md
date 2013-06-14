@@ -18,9 +18,7 @@ sudo python setup.py install
 Usage
 =====
 ````
-scrapy crawl sapo -o item_sapo.csv -t csv
-scrapy crawl custojusto -o item_custojusto.csv -t csv
-serve-this
+./script/start.sh
 ````
 
 Hack
