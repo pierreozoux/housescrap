@@ -33,6 +33,7 @@ class SapoSpider(BaseSpider):
       print "End page"
     else:
       next_url = urljoin(response.url,next_page)
+      # uncomment the next one if you want to scrap more than the first page
       #yield Request(next_url,callback=self.parse)
 
   def parseHouse(self, response):
