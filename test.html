@@ -8,7 +8,6 @@
     <script src="js/jquery-1.7.2.min.js"></script>
     <script src="js/lightbox.js"></script>
     <script src="js/jquery.csv.min.js"></script>
-    <link href="css/lightbox.css" rel="stylesheet" />
     <script>
 
 var sync_object;
@@ -29,27 +28,24 @@ sync_object = {
 
 Nimbus.Auth.setup(sync_object);
 
-Nimbus.Auth.authorized_callback = function() { console.log("authentication finished") };
+Nimbus.Auth.authorized_callback = function() { 
+  Not_Interesting = Nimbus.Model.setup("Not Not_Interesting", [ "hash" ]);
+  a = Not_Interesting.create({ "hash":"blabla"});
 
-Not_Interesting = Nimbus.Model.setup("Not Not_Interesting", [ "hash" ]);
-a = Entry.create({ "hash":"blabla"});
+  Not_Interesting.sync_all( function(){ alert("Everything is synced") } );
 
-Not_Interesting.sync_all( function(){ alert("Everything is synced") } );
-
-console.log( a.hash );
-
-a.updateAttribute({ "hash": "changed"});
-
-console.log( a.hash );
-
+  a.updateAttribute({ "hash": "changed"});
+};
 
     </script>
   </head>
   <body>
     <a onclick="Nimbus.Auth.authorize('Dropbox')">authorize me DropBox</a>
-    <br/>
-    <br/>
-    <a onclick="Nimbus.Auth.authorize('GDrive')">authorize me Google</a>
-
+    <br>
+    <br>
+    <a onclick="Nimbus.Auth.authorize('GDrive')">authorize me GDrive</a>
+    <br>
+    <br>
+    <a onclick="Nimbus.Auth.logout()">Logout</a>
   </body>
 </html>
