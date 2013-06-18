@@ -34,7 +34,6 @@ nosetests.xml
 .project
 .pydevproject
 images/full
-item.csv
 item_sapo.csv
 item_sapo.csv.old
 item_custojusto.csv.old
