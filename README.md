@@ -5,6 +5,8 @@ A lot of house finder are just crap, right? So, let's scrap their houses and dis
 
 [Live demo](http://pierreozoux.github.io/housescrap/)
 
+![picture](https://raw.github.com/pierreozoux/housescrap/master/assets/readme.jpg)
+
 Installation
 ============
 ````
