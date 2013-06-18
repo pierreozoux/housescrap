@@ -128,7 +128,7 @@ function initialize() {
     handleNoGeolocation(false);
   }
 
-  $.get('item.csv', {}, function(csv) {
+  $.get('https://raw.github.com/pierreozoux/housescrap/gh-pages/item.csv', {}, function(csv) {
     $.csv.toObjects(csv, {}, function(err, houses){
       for (var i in houses){
         //console.log(houses[i])
