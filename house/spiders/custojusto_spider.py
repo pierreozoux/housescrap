@@ -43,10 +43,7 @@ class CustojustoSpider(BaseSpider):
     item['link'] = response.url
     item['size'] = hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Tipologia")]').select('../text()').extract()[1].strip()
 
-    descs = hxs.select('//div[contains(@class, "body_text")]/text()').extract()
-    item['desc'] = ""
-    for desc in descs:
-      item['desc'] = item['desc'] + desc
+    item['desc'] = hxs.select('//div[contains(@class, "body_text")]/text()').extract()
 
     item['price'] = hxs.select('//span[contains(@class, "coolprice")]/text()').extract()[0].strip()
     item['publication'] = hxs.select('//p[contains(@class,"right")]/text()').extract()[1].strip()

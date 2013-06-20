@@ -12,6 +12,7 @@ SPIDER_MODULES = ['house.spiders']
 NEWSPIDER_MODULE = 'house.spiders'
 
 ITEM_PIPELINES = [
+  'house.pipelines.DescHashPipeline'
   ]
 
 IMAGES_STORE = '/Users/pierreozoux/Documents/scrapy/house/images'
