@@ -5,7 +5,7 @@ var priceL = 300;
 
 function rgbToHex(r, g, b) {
   return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-}
+};
 
 function color(price, priceH, priceL){
   var priceRange = priceH - priceL;
@@ -21,10 +21,8 @@ function color(price, priceH, priceL){
     red = 255;
     green = Math.round(255 - (percentage - 0.50)*2*255);
   }
-  console.log(red);
-  console.log(green);
   return rgbToHex(red, green, blue);
-}
+};
 
 function create(house, map){
   colorP = color($.trim(house.price.replace("€","")), priceH, priceL);
@@ -32,7 +30,7 @@ function create(house, map){
 
   var contentImage = "";
 
-  var images = house.image_urls.split(',')
+  var images = house.image_urls.split(',');
 
   for (var i in images){
     contentImage += '<a href="'
@@ -40,8 +38,7 @@ function create(house, map){
     contentImage += '" rel="lightbox[test]" title="my caption"><img src="'
     contentImage += images[i]
     contentImage += '" height="60" width="80"></a>'
-  }
-
+  };
 
 
   var contentString = '<div id="content">'+
@@ -86,8 +83,7 @@ function create(house, map){
     infowindow.open(map,houseMarker);
   });
 
-}
-
+};
 
 function initialize() {
 
