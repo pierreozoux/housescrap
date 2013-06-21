@@ -114,21 +114,10 @@ function initialize() {
   $.get('../item.csv', {}, function(csv) {
     $.csv.toObjects(csv, {}, function(err, houses){
       for (var i in houses){
-        //console.log(houses[i])
         create(houses[i], map);
       }
     });
-    
-      // console.log(houses)
-    //for (var house in data){
-      //   console.log(house);
-      //   //create(house,)
-      // }
-    });
-
-}
-
+  });
+};
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
-
