@@ -52,6 +52,9 @@ function create(house, map){
       '</a>'+
       '</h1>'+
       '<div id="bodyContent">'+
+      '<a class="pure-button pure-button-red pure-button-xsmall" onclick="not_interesting(\''+
+      house.desc_hash+
+      '\')">Not interesting</a>'+
       '<p>'+
       'size:                 '+
       house.size+
