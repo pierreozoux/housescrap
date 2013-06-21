@@ -5,14 +5,39 @@
     <meta charset="utf-8">
     <title>HouseScrap</title>
     <link href="https://google-developers.appspot.com/maps/documentation/javascript/examples/default.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
     <script src="js/jquery-1.7.2.min.js"></script>
     <script src="js/lightbox.js"></script>
     <script src="js/jquery.csv.min.js"></script>
     <link href="css/lightbox.css" rel="stylesheet" />
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="http://nimbusbase.com/static/nimbus.min.js"></script>  
+    <script src="js/conf_nimbus.js"></script>
+    <script src="js/app.js"></script>
     <script src="js/map.js"></script>
+
   </head>
   <body>
+
+    <div id="login">
+      <style scoped>
+        .pure-button-xsmall {
+            font-size: 70%;
+        }
+        .pure-button-google {
+            background: rgb(28, 184, 65); /* this is a green */
+        }
+        .pure-button-red {
+            background: rgb(202, 60, 60); /* this is a maroon */
+        }
+        .pure-button-dropbox {
+            background: rgb(66, 184, 221); /* this is a light blue */
+        }
+      </style>
+        <a class="pure-button pure-button-dropbox" onclick="connect_dropbox()">DropBox</a>
+        <a class="pure-button pure-button-google" onclick="connect_google()">Google</a>
+        <a class="pure-button pure-button-red" onclick="log_out()">LogOut</a>
+    </div>
     <div id="map-canvas"></div>
   </body>
 </html>
