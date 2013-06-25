@@ -4,6 +4,11 @@ from scrapy.selector import HtmlXPathSelector
 from house.items import HouseItem
 from urlparse import urljoin
 from scrapy.http import Request
+import json
+import urllib2
+import urllib
+import urlparse
+import httplib2
 
 class CustojustoSpider(BaseSpider):
   name = "custojusto"
@@ -50,12 +55,21 @@ class CustojustoSpider(BaseSpider):
 
     image_from_script = hxs.select('//div[contains(@id, "slider")]/script/text()').extract()
     images_urls = image_from_script[0].split('[')[1].split(',')
-    item['lng'] = images_urls[-1].split("'")[0]
-    item['lat'] = images_urls[-2].split('C')[-1]
 
-    images_urls.remove(images_urls[-1])
-    images_urls.remove(images_urls[-1])
-    images_urls.remove(images_urls[-1])
+    try:
+      if "googleapis" in images_urls[-3]:
+        item['lng'] = images_urls[-1].split("'")[0]
+        item['lat'] = images_urls[-2].split('C')[-1]
+        images_urls.remove(images_urls[-1])
+        images_urls.remove(images_urls[-1])
+        images_urls.remove(images_urls[-1])
+      else:
+        raise RunExceptCode
+    except:
+      iri = "http://maps.googleapis.com/maps/api/geocode/json?address=" + item['address'] + "&sensor=true"
+      result = json.load(urllib2.urlopen(httplib2.iri2uri(iri).replace(" ","%20")))['results'][0]
+      item['lat'] = result['geometry']['location']['lat']
+      item['lng'] = result['geometry']['location']['lng']
 
 
     item['image_urls'] = []
