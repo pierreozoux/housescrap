@@ -4,155 +4,43 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>HouseScrap</title>
-    <link href="https://google-developers.appspot.com/maps/documentation/javascript/examples/default.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
     <script src="js/jquery-1.7.2.min.js"></script>
     <script src="js/lightbox.js"></script>
     <script src="js/jquery.csv.min.js"></script>
     <link href="css/lightbox.css" rel="stylesheet" />
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script>
-var geocoder;
-var map;
-
-var priceH = 500;
-var priceL = 300;
-
-geocoder = new google.maps.Geocoder();
-
-function rgbToHex(r, g, b) {
-  return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-}
-
-function color(price, priceH, priceL){
-  var priceRange = priceH - priceL;
-  var amp = price - priceL;
-  var percentage = amp/priceRange;
-  var blue = 0;
-  var red;
-  var green;
-  if (percentage < 0.50) {
-    green = 255;
-    red = Math.round(percentage*2*255);
-  } else {
-    red = 255;
-    green = Math.round(255 - (percentage - 0.50)*2*255);
-  }
-  console.log(red);
-  console.log(green);
-  return rgbToHex(red, green, blue);
-}
-
-function create(house, map){
-  colorP = color($.trim(house.price.replace("€","")), priceH, priceL);
-  var icon = 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=0.7|0|' + colorP + '|13|b|' + house.size;
-
-  var contentImage = "";
-
-  var images = house.image_urls.split(',')
-
-  for (var i in images){
-    contentImage += '<a href="'
-    contentImage += images[i]
-    contentImage += '" rel="lightbox[test]" title="my caption"><img src="'
-    contentImage += images[i]
-    contentImage += '" height="60" width="80"></a>'
-  }
-
-
-
-  var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">'+
-      '<a href="'+
-      house.link+
-      '" target="_blank">'+
-      house.address+
-      '</a>'+
-      '</h1>'+
-      '<div id="bodyContent">'+
-      '<p>'+
-      'size:                 '+
-      house.size+
-      '</br>estado:            '+
-      house.state+
-      '</br>price:            '+
-      house.price+
-      '</br>Publication date:  '+
-      house.publication+
-      '</br></br>'+
-      house.desc+
-      '</p>'+
-      contentImage+
-      '</div>'+
-      '</div>';
-
-  var infowindow = new google.maps.InfoWindow({
-      content: contentString
-  });
-
-  var houseLatLng = new google.maps.LatLng(house.lat, house.lng);
-  var houseMarker = new google.maps.Marker({
-      position: houseLatLng,
-      map: map,
-      icon: icon
-  });
-
-  google.maps.event.addListener(houseMarker, 'click', function() {
-    infowindow.open(map,houseMarker);
-  });
-
-}
-
-
-function initialize() {
-
-  var mapOptions = {
-    zoom: 12,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-  var map = new google.maps.Map(document.getElementById('map-canvas'),
-                                mapOptions);
-
-
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
-                                       position.coords.longitude);
-      map.setCenter(pos);
-    }, function() {
-      handleNoGeolocation(true);
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleNoGeolocation(false);
-  }
-
-  $.get('http://pierreozoux.github.io/housescrap/item.csv', {}, function(csv) {
-    $.csv.toObjects(csv, {}, function(err, houses){
-      for (var i in houses){
-        //console.log(houses[i])
-        create(houses[i], map);
-      }
-    });
-    
-      // console.log(houses)
-    //for (var house in data){
-      //   console.log(house);
-      //   //create(house,)
-      // }
-    });
-
-}
-
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
-    </script>
+    <script src="http://nimbusbase.com/static/nimbus.min.js"></script>  
+    <script src="js/conf_nimbus.js"></script>
+    <script src="js/app.js"></script>
   </head>
   <body>
-    <div id="map-canvas"></div>
+
+    <div id="login">
+      <style scoped>
+        .pure-button-xsmall {
+            font-size: 70%;
+        }
+        .pure-button-google {
+            background: rgb(28, 184, 65); /* this is a green */
+        }
+        .pure-button-red {
+            background: rgb(202, 60, 60); /* this is a maroon */
+        }
+        .pure-button-dropbox {
+            background: rgb(66, 184, 221); /* this is a light blue */
+        }
+      </style>
+        <a class="pure-button pure-button-dropbox" onclick="connect_dropbox()">DropBox</a>
+        <a class="pure-button pure-button-google" onclick="connect_google()">Google</a>
+        <a class="pure-button pure-button-red" onclick="log_out()">LogOut</a>
+    </div>
+
+    <div id="house" style="padding:10px;z-index: 10; position: absolute; right: 0; width: 300px; height: 100%; background-color:#ffffff;"></div>
+
+    <div id="map"></div>
+
+    <script src="js/map.js"></script>
   </body>
 </html>

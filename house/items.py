@@ -19,3 +19,4 @@ class HouseItem(Item):
     state = Field()
     publication = Field()
     image_urls = Field()
+    desc_hash = Field()
