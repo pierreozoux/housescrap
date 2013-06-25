@@ -24,10 +24,7 @@ function color(price, priceH, priceL){
   return rgbToHex(red, green, blue);
 };
 
-function create(house, map){
-  colorP = color($.trim(house.price.replace("€","")), priceH, priceL);
-  var icon = 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=0.7|0|' + colorP + '|13|b|' + house.size;
-
+function currentHouse(house){
   var contentImage = "";
 
   var images = house.image_urls.split(',');
@@ -42,82 +39,89 @@ function create(house, map){
 
 
   var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">'+
-      '<a href="'+
-      house.link+
-      '" target="_blank">'+
-      house.address+
-      '</a>'+
-      '</h1>'+
-      '<div id="bodyContent">'+
-      '<a class="pure-button pure-button-red pure-button-xsmall" onclick="not_interesting(\''+
-      house.desc_hash+
-      '\')">Not interesting</a>'+
-      '<p>'+
-      'size:                 '+
-      house.size+
-      '</br>estado:            '+
-      house.state+
-      '</br>price:            '+
-      house.price+
-      '</br>Publication date:  '+
-      house.publication+
-      '</br></br>'+
-      house.desc+
-      '</p>'+
-      contentImage+
-      '</div>'+
-      '</div>';
+  '<div id="siteNotice">'+
+  '</div>'+
+  '<h1 id="firstHeading" class="firstHeading">'+
+  '<a href="'+
+  house.link+
+  '" target="_blank">'+
+  house.address+
+  '</a>'+
+  '</h1>'+
+  '<div id="bodyContent">'+
+  '<a class="pure-button pure-button-red pure-button-xsmall" onclick="not_interesting(\''+
+  house.desc_hash+
+  '\')">Not interesting</a>'+
+  '<p>'+
+  'size:                 '+
+  house.size+
+  '</br>estado:            '+
+  house.state+
+  '</br>price:            '+
+  house.price+
+  '</br>Publication date:  '+
+  house.publication+
+  '</br></br>'+
+  house.desc+
+  '</p>'+
+  contentImage+
+  '</div>'+
+  '</div>';
 
-  var infowindow = new google.maps.InfoWindow({
-      content: contentString
-  });
-
-  var houseLatLng = new google.maps.LatLng(house.lat, house.lng);
-  var houseMarker = new google.maps.Marker({
-      position: houseLatLng,
-      map: map,
-      icon: icon
-  });
-
-  google.maps.event.addListener(houseMarker, 'click', function() {
-    infowindow.open(map,houseMarker);
-  });
+  $('#house').html(contentString);
 
 };
 
-function initialize() {
+function create(house, map, markerArray){
+  
 
-  var mapOptions = {
-    zoom: 12,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-  var map = new google.maps.Map(document.getElementById('map-canvas'),
-                                mapOptions);
+  
+  colorP = color($.trim(house.price.replace("€","")), priceH, priceL);
+  var icon_url = 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=0.7|0|' + colorP + '|13|b|' + house.size;
+  var markerIcon = L.icon({
+    iconUrl: icon_url,
+    iconAnchor: [14, 47],
+    popupAnchor: [0, -47],
+  });
 
+  var marker = new L.marker([house.lat, house.lng], {icon: markerIcon});
+  marker.on('click', function(){
+    currentHouse(house);
+  });
 
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
-                                       position.coords.longitude);
-      map.setCenter(pos);
-    }, function() {
-      handleNoGeolocation(true);
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleNoGeolocation(false);
-  }
+  marker.bindPopup("Current house");
+  markerArray[house.desc_hash] = marker;
+  map.addLayer(markerArray[house.desc_hash]);
+
+};
+
+function initialize(markerArray) {
+  divmap = document.getElementById('map');
+  var height = $(document).height() - 34;
+  divmap.style.height = height+"px";
+  divhouse = document.getElementById('house');
+  var height = $(document).height() - 34;
+  divhouse.style.height = height+"px";
+
+  map = L.map('map').setView([38.73367, -9.1359], 13);
+
+  L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
+  }).addTo(map);
 
   $.get('../item.csv', {}, function(csv) {
     $.csv.toObjects(csv, {}, function(err, houses){
       for (var i in houses){
-        create(houses[i], map);
+        if (houses[i].title != "title"){
+          create(houses[i], map, markerArray);
+        }
       }
     });
   });
+
 };
 
-google.maps.event.addDomListener(window, 'load', initialize);
+
+var markerArray = [];
+initialize(markerArray);
