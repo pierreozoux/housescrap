@@ -15,3 +15,12 @@ class DescHashPipeline(object):
     item['desc'] = description.strip()
     item['desc_hash'] = hashlib.sha1(item['desc'].encode('utf-8')).hexdigest()
     return item
+
+class TitlePipeline(object):
+  def process_item(self, item, spider):
+    title = ""
+    for line in item['title']:
+      title = title + line
+
+    item['title'] = title.strip()
+    return item
