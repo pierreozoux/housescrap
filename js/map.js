@@ -110,7 +110,7 @@ function initialize(markerArray) {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
   }).addTo(map);
 
-  $.get('../item.csv', {}, function(csv) {
+  $.get('item.csv', {}, function(csv) {
     $.csv.toObjects(csv, {}, function(err, houses){
       for (var i in houses){
         if (houses[i].title != "title"){
