@@ -14,7 +14,7 @@ class CustojustoSpider(BaseSpider):
   name = "custojusto"
   allowed_domains = ["custojusto.pt"]
   start_urls = [
-      "http://www.custojusto.pt/Lisboa?ca=14_s&th=1&q=&cg=1020&w=114:213&st=u&ps=3&pe=5&ros=3&roe=5&ss=&se="
+      "http://www.custojusto.pt/Lisboa?ca=14_s&th=1&q=&cg=1020&w=114%3A213&st=u&ps=3&pe=5&ros=3&roe=6&ss=&se=&sl="
   ]
 
   def parse(self, response):
