@@ -17,7 +17,6 @@ ITEM_PIPELINES = [
   'scrapymongodb.MongoDBPipeline'
   ]
 
-IMAGES_STORE = '/Users/pierreozoux/Documents/scrapy/house/images'
 MONGODB_SERVER = 'localhost'
 MONGODB_PORT = 3002
 MONGODB_DB = 'meteor'

@@ -1,4 +1,3 @@
-from scrapy.exceptions import DropItem
 import hashlib
 
 # Define your item pipelines here
