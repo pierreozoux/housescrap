@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import hashlib
 
 # Define your item pipelines here
@@ -22,4 +23,11 @@ class TitlePipeline(object):
       title = title + line
 
     item['title'] = title.strip()
+    return item
+
+class PricePipeline(object):
+  def process_item(self, item, spider):
+    price = item['price'].replace(u"€","").strip()
+
+    item['price'] = price
     return item

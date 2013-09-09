@@ -36,6 +36,7 @@ class CustojustoSpider(BaseSpider):
   def parseHouse(self, response):
     hxs = HtmlXPathSelector(response)
     item = HouseItem()
+    item['currency'] = "€"
     item['title'] =hxs.select('//h1[contains(@class, "long_subject")]/text()').extract()
     Concelho = hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Concelho")]').select('../text()').extract()[1].strip()
     Freguesia = ""

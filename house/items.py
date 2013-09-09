@@ -12,6 +12,7 @@ class HouseItem(Item):
     link = Field()
     desc = Field()
     price = Field()
+    currency = Field()
     address = Field()
     lat = Field()
     lng = Field()

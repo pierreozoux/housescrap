@@ -13,7 +13,8 @@ NEWSPIDER_MODULE = 'house.spiders'
 
 ITEM_PIPELINES = [
   'house.pipelines.DescHashPipeline',
-  'house.pipelines.TitlePipeline'
+  'house.pipelines.TitlePipeline',
+  'house.pipelines.PricePipeline',
   'scrapymongodb.MongoDBPipeline'
   ]
 

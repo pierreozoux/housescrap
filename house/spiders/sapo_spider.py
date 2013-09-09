@@ -39,6 +39,7 @@ class SapoSpider(BaseSpider):
   def parseHouse(self, response):
     hxs = HtmlXPathSelector(response)
     item = HouseItem()
+    item['currency'] = "€"
     item['title'] = hxs.select('//div[contains(@class, "detaiHeaderProperty")]/text()')[0].extract()
     item['address'] = hxs.select('//div[contains(@class, "detaiHeaderLocation")]/text()')[0].extract()
     item['link'] = response.url
