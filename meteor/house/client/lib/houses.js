@@ -27,7 +27,6 @@ if (Meteor.isClient) {
   function currentHouse(house){
     var contentImage = "";
     console.log(house.image_urls);
-    var images = house.image_urls.split(',');
 
     for (var i in house.image_urls){
       contentImage += '<a href="'
