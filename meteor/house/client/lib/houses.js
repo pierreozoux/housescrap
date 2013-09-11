@@ -91,10 +91,8 @@ if (Meteor.isClient) {
   };
 
   draw_house = function(map){
-    Meteor.subscribe("houses", function () {
-      Houses.find().forEach(function(house){
+    Houses.find().forEach(function(house){
         create(house);
-      });  
     });
   };
 }
