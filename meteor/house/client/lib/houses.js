@@ -1,16 +1,16 @@
 if (Meteor.isClient) {
 
-  var priceH = 500;
-  var priceL = 300;
+  var priceHigh = 500;
+  var priceLow = 300;
 
   function rgbToHex(r, g, b) {
     return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
   };
 
-  function color(price, priceH, priceL){
-    var priceRange = priceH - priceL;
-    var amp = price - priceL;
-    var percentage = amp/priceRange;
+  function color(price, priceHigh, priceLow){
+    var priceRange = priceHigh - priceLow;
+    var amplitude = price - priceLow;
+    var percentage = amplitude/priceRange;
     var blue = 0;
     var red;
     var green;
@@ -72,7 +72,7 @@ if (Meteor.isClient) {
   };
 
   function create(house){
-    colorP = color($.trim(house.price), priceH, priceL);
+    colorP = color($.trim(house.price), priceHigh, priceLow);
     var icon_url = 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=0.7|0|' + colorP + '|13|b|' + house.size;
     var markerIcon = L.icon({
       iconUrl: icon_url,
