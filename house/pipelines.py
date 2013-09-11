@@ -29,5 +29,5 @@ class PricePipeline(object):
   def process_item(self, item, spider):
     price = item['price'].replace(u"€","").strip()
 
-    item['price'] = price
+    item['price'] = int(price)
     return item
