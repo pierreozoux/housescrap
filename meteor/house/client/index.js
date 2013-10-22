@@ -19,6 +19,12 @@ if (Meteor.isClient) {
     );
   });
 
+  Meteor.startup(function () {
+    Deps.autorun(function () {
+      Houses.find({"price": {"$gt": Session.get("priceLow"), "$lt": Session.get("priceHigh")}}).forEach(function (house) {
+        house.setIcon();
+      });
+    });
   });
 
 }
