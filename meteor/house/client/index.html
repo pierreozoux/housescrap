@@ -14,16 +14,16 @@
 
 
 <template name="form">
-  Price range
   <form onSubmit="getValue(); return false;" class="form-inline" role="form">
+    Price range:
     <div class="form-group">
       <label class="sr-only" for="priceLow">Price low</label>
-      <input type="number" class="form-control" id="priceLow">
+      <input type="number" class="form-control" id="priceLow" maxlength="4">
     </div>
     :
     <div class="form-group">
       <label class="sr-only" for="priceHigh">:</label>
-      <input type="number" class="form-control" id="priceHigh">
+      <input type="number" class="form-control" id="priceHigh" maxlength="4">
     </div>
     <button type="submit" class="btn btn-default" >Go!</button>
   </form>
