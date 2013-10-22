@@ -63,9 +63,9 @@ _.extend(House.prototype, {
     '</a>'+
     '</h1>'+
     '<div id="bodyContent">'+
-    '<a class="pure-button pure-button-red pure-button-xsmall" onclick="not_interesting(\''+
+    '<button type="button" class="btn btn-danger" onclick="not_interesting(\''+
     this.desc_hash+
-    '\')">Not interesting</a>'+
+    '\')">Not interesting</button>'+
     '<p>'+
     'size:                 '+
     this.size+

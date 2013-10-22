@@ -14,14 +14,17 @@
 
 
 <template name="form">
-  <div id="form" >
-    <form class="form-inline" role="form">
-      <div class="form-group">
-        <label class="sr-only" for="priceLow">Price range</label>
-        <input type="number" class="form-control" id="priceLow">:
-        <input type="number" class="form-control" id="priceHigh">
-        <button type="button" class="btn btn-default" onclick="getValue();">Go!</button>
-      </div>
-    </form>
-  </div>
+  Price range
+  <form onSubmit="getValue(); return false;" class="form-inline" role="form">
+    <div class="form-group">
+      <label class="sr-only" for="priceLow">Price low</label>
+      <input type="number" class="form-control" id="priceLow">
+    </div>
+    :
+    <div class="form-group">
+      <label class="sr-only" for="priceHigh">:</label>
+      <input type="number" class="form-control" id="priceHigh">
+    </div>
+    <button type="submit" class="btn btn-default" >Go!</button>
+  </form>
 </template>
