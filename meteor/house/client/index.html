@@ -3,10 +3,25 @@
 </head>
 
 <body>
+  {{> form}}
   <div id="house" style="padding:10px;z-index: 10; position: absolute; right: 0; width: 300px; height: 100%; background-color:#ffffff;"></div>
   {{> map}}
 </body>
 
 <template name="map">
   <div id="map"></div>
+</template>
+
+
+<template name="form">
+  <div id="form" >
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <label class="sr-only" for="priceLow">Price range</label>
+        <input type="number" class="form-control" id="priceLow">:
+        <input type="number" class="form-control" id="priceHigh">
+        <button type="button" class="btn btn-default" onclick="getValue();">Go!</button>
+      </div>
+    </form>
+  </div>
 </template>
