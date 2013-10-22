@@ -19,21 +19,6 @@ if (Meteor.isClient) {
     );
   });
 
-  Deps.autorun(function () {
-    console.log("run!");
-    t = Session.get("priceLow");
-    t2 = Session.get("priceHigh");
-    for (var house_id in window.markers){
-      console.log(house_id);
-      console.log(Houses.find({_id: house_id}));
-    }
-
-    // window.markers.forEach(function (marker, house_id) {
-    //   console.log("test");
-    //   house = Houses.findOne({_id: house_id});
-    //   console.log(house);
-    //   house.setIcon();
-    // });
   });
 
 }

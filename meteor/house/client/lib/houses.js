@@ -3,11 +3,9 @@ if (Meteor.isClient) {
     Houses.find({}).observe({
       added: function(house) {
         house.addToMap();
-        console.log("2added");
       },
       removed: function(house) {
         house.removeFromMap();
-        console.log("deleted");
       }
     });
   });
