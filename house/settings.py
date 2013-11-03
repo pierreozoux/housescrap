@@ -15,16 +15,15 @@ ITEM_PIPELINES = [
   'house.pipelines.DescHashPipeline',
   'house.pipelines.TitlePipeline',
   'house.pipelines.PricePipeline',
-  'scrapymongodb.MongoDBPipeline'
+  'scrapy_mongodb.MongoDBPipeline'
   ]
 
-MONGODB_SERVER = 'localhost'
-MONGODB_PORT = 3002
-MONGODB_DB = 'meteor'
+
+MONGODB_URI = 'mongodb://127.0.0.1:3002/'
+MONGODB_DATABASE = 'meteor'
+
 MONGODB_COLLECTION = 'houses'
 MONGODB_UNIQ_KEY = 'desc_hash'
-MONGODB_ITEM_ID_FIELD = '_id'
-MONGODB_SAFE = True
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
