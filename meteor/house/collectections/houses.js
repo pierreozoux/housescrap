@@ -47,7 +47,7 @@ _.extend(House.prototype, {
     for (var i in this.image_urls){
       contentImage += '<a href="'
       contentImage += this.image_urls[i]
-      contentImage += '" rel="lightbox[test]" title="my caption"><img src="'
+      contentImage += '" rel="lightbox[house:images]" title="my caption"><img src="'
       contentImage += this.image_urls[i]
       contentImage += '" height="60" width="80"></a>'
     };
