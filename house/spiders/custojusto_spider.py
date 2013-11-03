@@ -79,8 +79,8 @@ class CustojustoSpider(BaseSpider):
 
     try:
       if "googleapis" in images_urls[-3]:
-        item['lng'] = images_urls[-1].split("'")[0]
-        item['lat'] = images_urls[-2].split('C')[-1]
+        item['lng'] = int(images_urls[-1].split("'")[0])
+        item['lat'] = int(images_urls[-2].split('C')[-1])
         images_urls.remove(images_urls[-1])
         images_urls.remove(images_urls[-1])
         images_urls.remove(images_urls[-1])

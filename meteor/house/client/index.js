@@ -1,6 +1,5 @@
 if (Meteor.isClient) {
 
-  Session.setDefault("location", "");
   Session.setDefault("priceLow", 300);
   Session.setDefault("priceHigh", 500);
   Session.setDefault("size", "");
@@ -9,11 +8,16 @@ if (Meteor.isClient) {
   Template.map.rendered = function ( ) {
     $(window).resize(window.resize());
     window.map = initializeMap();
+    window.map.on('moveend', setBounds);
+    setBounds();
   }
 
   Deps.autorun(function () {
-    Meteor.subscribe("houses", 
-      Session.get("location"), 
+    Meteor.subscribe("houses",
+      Session.get("south"),
+      Session.get("north"),
+      Session.get("west"),
+      Session.get("east"),
       Session.get("priceLow"), 
       Session.get("priceHigh"), 
       Session.get("size")
