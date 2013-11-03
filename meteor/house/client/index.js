@@ -7,6 +7,7 @@ if (Meteor.isClient) {
   window.markers = [];
 
   Template.map.rendered = function ( ) {
+    $(window).resize(window.resize());
     window.map = initializeMap();
   }
 

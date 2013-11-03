@@ -1,9 +1,13 @@
 if (Meteor.isClient) {
-  initializeMap = function(){
+
+  window.resize=function(){
     divmap = document.getElementById('map');
     var height = $(document).height() - 34;
     divmap.style.height = height+"px";
-
+  };
+    
+  initializeMap = function(){
+    //window.resize
     var map = L.map('map').setView([38.73367, -9.1359], 13);
 
     L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
