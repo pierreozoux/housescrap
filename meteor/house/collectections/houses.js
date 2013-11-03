@@ -76,7 +76,7 @@ _.extend(House.prototype, {
     '</br>Publication date:  '+
     this.publication+
     '</br></br>'+
-    house.desc+
+    this.desc+
     '</p>'+
     contentImage+
     '</div>'+
