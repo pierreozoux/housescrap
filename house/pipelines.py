@@ -27,7 +27,7 @@ class TitlePipeline(object):
 
 class PricePipeline(object):
   def process_item(self, item, spider):
-    price = item['price'].replace(u"€","").strip()
+    price = item['price'].replace(u"€","").strip().replace(" ", "")
 
     item['price'] = int(price)
     return item
