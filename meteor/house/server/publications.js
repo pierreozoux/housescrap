@@ -1,16 +1,20 @@
-Meteor.publish("houses", function (mapSouth, mapNorth, mapWest, mapEast, priceLow, priceHigh, size) {
+Meteor.publish("houses", function (mapSouth, mapNorth, mapWest, mapEast, priceLow, priceHigh, typeLow, typeHigh) {
   return Houses.find({
     "lat": {
-      "$gt": mapSouth,
-      "$lt": mapNorth
+      "$gte": mapSouth,
+      "$lte": mapNorth
     },
     "lng": {
-      "$gt": mapWest,
-      "$lt": mapEast
+      "$gte": mapWest,
+      "$lte": mapEast
     },
     "price": {
-      "$gt": priceLow, 
-      "$lt": priceHigh
+      "$gte": priceLow, 
+      "$lte": priceHigh
+    },
+    "size": {
+      "$gte": typeLow, 
+      "$lte": typeHigh
     }
   });
 });

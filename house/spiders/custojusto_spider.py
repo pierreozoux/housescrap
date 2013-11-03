@@ -52,7 +52,7 @@ class CustojustoSpider(BaseSpider):
 
     item['address'] = Concelho + ' ' + Freguesia
     item['link'] = response.url
-    item['size'] = hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Tipologia")]').select('../text()').extract()[1].strip()
+    item['size'] = int(hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Tipologia")]').select('../text()').extract()[1].strip().replace("T","")[0])
 
     item['desc'] = hxs.select('//div[contains(@class, "body_text")]/text()').extract()
 

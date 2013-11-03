@@ -2,7 +2,8 @@ if (Meteor.isClient) {
 
   Session.setDefault("priceLow", 300);
   Session.setDefault("priceHigh", 500);
-  Session.setDefault("size", "");
+  Session.setDefault("typeLow", 0);
+  Session.setDefault("typeHigh", 3);
   window.markers = [];
 
   Template.map.rendered = function ( ) {
@@ -20,7 +21,8 @@ if (Meteor.isClient) {
       Session.get("east"),
       Session.get("priceLow"), 
       Session.get("priceHigh"), 
-      Session.get("size")
+      Session.get("typeLow"),
+      Session.get("typeHigh")
     );
   });
 

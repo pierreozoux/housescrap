@@ -4,7 +4,7 @@ House = function (document) {
 
 _.extend(House.prototype, {
   setIcon: function () {
-    var icon_url = 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=0.7|0|' + this.colorPrice() + '|13|b|' + this.size;
+    var icon_url = 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=0.7|0|' + this.colorPrice() + '|13|b|T' + this.size;
     var icon = L.icon({
       iconUrl: icon_url,
       iconAnchor: [14, 47],
@@ -67,7 +67,7 @@ _.extend(House.prototype, {
     this.desc_hash+
     '\')">Not interesting</button>'+
     '<p>'+
-    'size:                 '+
+    'size: T'+
     this.size+
     '</br>estado:            '+
     this.state+
