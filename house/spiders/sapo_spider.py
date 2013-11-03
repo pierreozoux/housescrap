@@ -17,7 +17,7 @@ class SapoSpider(BaseSpider):
   name = "sapo"
   allowed_domains = ["casa.sapo.pt"]
   start_urls = [
-      "http://casa.sapo.pt/Alugar/Apartamentos/Lisboa/?sa=11&aop=1&gp=450&lp=300&mpr=1,2,3,4&or=10&pn=1"
+      "http://casa.sapo.pt/Alugar/Apartamentos/Lisboa/?sa=11&or=10&AOP=1"
   ]
 
   def parse(self, response):
