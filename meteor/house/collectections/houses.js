@@ -4,11 +4,11 @@ House = function (document) {
 
 _.extend(House.prototype, {
   setIcon: function () {
-    var icon_url = 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=0.7|0|' + this.colorPrice() + '|13|b|T' + this.size;
-    var icon = L.icon({
-      iconUrl: icon_url,
-      iconAnchor: [14, 47],
-      popupAnchor: [0, -47],
+    var icon = L.divIcon({
+      className: "houses",
+      iconSize: [44, 43],
+      iconAnchor: [37, 46],
+      html: "T" + this.size
     });
     window.markers[this._id._str].setIcon(icon);
   },
@@ -18,13 +18,14 @@ _.extend(House.prototype, {
     marker.on('click', function(){
       house.show();
     });
-    marker.bindPopup("Current house");
+    marker.bindPopup("Current house", { offset: [-18, -40]});
     marker.price = this.price;
     window.markers[this._id._str] = marker;
     this.setIcon();
     window.map.addLayer(marker);
+    this.setIconColor();
   },
-  colorPrice: function () {
+  setIconColor: function () {
     var priceRange =   Session.get("priceHigh") - Session.get("priceLow"),
         amplitude = $.trim(this.price) - Session.get("priceLow"),
         percentage = amplitude/priceRange,
@@ -39,7 +40,7 @@ _.extend(House.prototype, {
       green = Math.round(255 - (percentage - 0.50)*2*255);
     }
     var colorHex = ((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1);
-    return colorHex;
+    window.markers[this._id._str]._icon.style.borderColor = "#" + colorHex;
   },
   show: function () {
     var contentImage = "";
