@@ -30,6 +30,7 @@ if (Meteor.isClient) {
     Deps.autorun(function () {
       Houses.find({"price": {"$gt": Session.get("priceLow"), "$lt": Session.get("priceHigh")}}).forEach(function (house) {
         house.setIcon();
+        house.setIconColor();
       });
     });
   });
