@@ -1,4 +1,4 @@
-Meteor.publish("houses", function (mapSouth, mapNorth, mapWest, mapEast, priceLow, priceHigh, typeLow, typeHigh) {
+Meteor.publish("houses", function (mapSouth, mapNorth, mapWest, mapEast, priceLow, priceHigh, typeLow) {
   return Houses.find({
     "lat": {
       "$gte": mapSouth,
@@ -13,8 +13,7 @@ Meteor.publish("houses", function (mapSouth, mapNorth, mapWest, mapEast, priceLo
       "$lte": priceHigh
     },
     "size": {
-      "$gte": typeLow, 
-      "$lte": typeHigh
+      "$gte": typeLow
     }
   });
 });

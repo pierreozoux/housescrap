@@ -21,8 +21,7 @@ if (Meteor.isClient) {
       Session.get("east"),
       Session.get("priceLow"), 
       Session.get("priceHigh"), 
-      Session.get("typeLow"),
-      Session.get("typeHigh")
+      Session.get("typeLow")
     );
   });
 
