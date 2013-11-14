@@ -2,8 +2,10 @@ if (Meteor.isClient) {
 
   window.resize=function(){
     divmap = document.getElementById('map');
-    var height = $(document).height() - 34;
+    var height = $(document).height() - 50;
+    var width = $(document).width() - 300;
     divmap.style.height = height+"px";
+    divmap.style.width = width+"px";
   };
 
   setBounds = function(e){
