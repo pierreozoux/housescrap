@@ -42,7 +42,7 @@ class CustojustoSpider(BaseSpider):
     hxs = HtmlXPathSelector(response)
     item = HouseItem()
     item['currency'] = "€"
-    item['title'] =hxs.select('//h1[contains(@class, "long_subject")]/text()').extract()
+    item['title'] = hxs.select('//h1[contains(@class, "long_subject")]/text()').extract()
     Concelho = hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Concelho")]').select('../text()').extract()[1].strip()
     Freguesia = ""
     try:
@@ -76,22 +76,9 @@ class CustojustoSpider(BaseSpider):
 
     image_from_script = hxs.select('//div[contains(@id, "slider")]/script/text()').extract()
     images_urls = image_from_script[0].split('[')[1].split(',')
-
-    try:
-      if "googleapis" in images_urls[-3]:
-        item['lng'] = int(images_urls[-1].split("'")[0])
-        item['lat'] = int(images_urls[-2].split('C')[-1])
-        images_urls.remove(images_urls[-1])
-        images_urls.remove(images_urls[-1])
-        images_urls.remove(images_urls[-1])
-      else:
-        raise RunExceptCode
-    except:
-      iri = "http://maps.googleapis.com/maps/api/geocode/json?address=" + item['address'] + "&sensor=true"
-      result = json.load(urllib2.urlopen(httplib2.iri2uri(iri).replace(" ","%20")))['results'][0]
-      item['lat'] = result['geometry']['location']['lat']
-      item['lng'] = result['geometry']['location']['lng']
-
+    images_urls[-1] = images_urls[-1].split(']')[0]
+    item['lat'] = float(hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Ver mapa")]').select('../a/@onclick').extract()[0].split(',')[0].split('(')[1])
+    item['lng'] = float(hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Ver mapa")]').select('../a/@onclick').extract()[0].split(',')[1])
 
     item['image_urls'] = []
     for image_url in images_urls:
