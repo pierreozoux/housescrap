@@ -7,6 +7,7 @@ if (Meteor.isClient) {
     Nimbus.Auth.authorized_callback = function() {
       HousesPreferences = Nimbus.Model.setup("Houses", ["desc_hash"]);
       console.log("authentication finished o/");
+      document.getElementById("auth").innerHTML="Log out!";
 
       houses_to_remove = [];
       HousesPreferences.each(function(house){
@@ -27,7 +28,16 @@ if (Meteor.isClient) {
     log_out = function() {
       Nimbus.Auth.logout();
       console.log("Logged Out");
+      document.getElementById("auth").innerHTML="Connect with Google!";
     };
+
+    auth = function() {
+      if (Nimbus.Auth.authorized()){
+        log_out();
+      }else{
+        connect_google();
+      }
+    };    
 
     connect_dropbox = function() {
       Nimbus.Auth.authorize('Dropbox');
@@ -50,7 +60,7 @@ if (Meteor.isClient) {
           console.log("House already deleted");
         }
       }else {
-        alert("Please log-in!");
+        alert("Please connect with google!");
       }
     };
   });

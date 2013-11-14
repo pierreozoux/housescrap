@@ -4,7 +4,7 @@
 
 <body>
   {{> form}}
-  <div id="house" style="padding:10px;z-index: 10; position: absolute; right: 0; width: 300px; height: 100%; background-color:#ffffff;"></div>
+  <div id="house" style="padding:10px;z-index: 10; position: absolute; top: 30px;right: 0; width: 300px; height: 100%; background-color:#ffffff;"></div>
   {{> map}}
 </body>
 
@@ -41,7 +41,7 @@
     </div>
     <button type="submit" class="btn btn-default">Go!</button>
   </form>
-  <button type="button" class="btn btn-primary" onclick="connect_dropbox()">DropBox</button>
-  <button type="button" class="btn btn-success" onclick="connect_google()">Google</button>
-  <button type="button" class="btn btn-danger" onclick="log_out()">LogOut</button>
+  <div id="connexion" style="float:right;right:0;">
+    <button id="auth" type="button"  onclick="auth()">Connect with Google!</button>
+  </div>
 </template>
