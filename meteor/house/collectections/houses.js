@@ -6,8 +6,8 @@ _.extend(House.prototype, {
   setIcon: function () {
     var icon = L.divIcon({
       className: "houses",
-      iconSize: [44, 43],
-      iconAnchor: [37, 46],
+      iconSize: [22, 21],
+      iconAnchor: [30, 28],
       html: "T" + this.size
     });
     window.markers[this._id._str].setIcon(icon);
@@ -18,7 +18,7 @@ _.extend(House.prototype, {
     marker.on('click', function(){
       house.show();
     });
-    marker.bindPopup("Current house", { offset: [-18, -40]});
+    marker.bindPopup("Current house", { offset: [-10, -22]});
     marker.price = this.price;
     window.markers[this._id._str] = marker;
     this.setIcon();
