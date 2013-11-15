@@ -3,7 +3,6 @@ if (Meteor.isClient) {
   Session.setDefault("priceLow", 300);
   Session.setDefault("priceHigh", 500);
   Session.setDefault("typeLow", 0);
-  Session.setDefault("typeHigh", 3);
   window.markers = [];
 
   Template.map.rendered = function ( ) {
