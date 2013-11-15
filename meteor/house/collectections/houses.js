@@ -73,7 +73,7 @@ _.extend(House.prototype, {
     '</br>estado:            '+
     this.state+
     '</br>price:            '+
-    this.price+
+    this.price+"€"+
     '</br>Publication date:  '+
     this.publication+
     '</br></br>'+
