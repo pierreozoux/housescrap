@@ -6,15 +6,15 @@
 #     http://doc.scrapy.org/topics/settings.html
 #
 
-BOT_NAME = 'house'
+BOT_NAME = 'house_scrap'
 
-SPIDER_MODULES = ['house.spiders']
-NEWSPIDER_MODULE = 'house.spiders'
+SPIDER_MODULES = ['house_scrap.spiders']
+NEWSPIDER_MODULE = 'house_scrap.spiders'
 
 ITEM_PIPELINES = [
-  'house.pipelines.DescHashPipeline',
-  'house.pipelines.TitlePipeline',
-  'house.pipelines.PricePipeline',
+  'house_scrap.pipelines.DescHashPipeline',
+  'house_scrap.pipelines.TitlePipeline',
+  'house_scrap.pipelines.PricePipeline',
   'scrapy_mongodb.MongoDBPipeline'
   ]
 

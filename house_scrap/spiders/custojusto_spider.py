@@ -2,7 +2,7 @@
 from scrapy.spider import BaseSpider
 from scrapy.selector import HtmlXPathSelector
 from scrapy.exceptions import CloseSpider
-from house.items import HouseItem
+from house_scrap.items import HouseItem
 from urlparse import urljoin
 from scrapy.http import Request
 import re
