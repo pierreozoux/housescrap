@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 from scrapy.spider import BaseSpider
 from scrapy.selector import HtmlXPathSelector
+from scrapy.exceptions import CloseSpider
 from house.items import HouseItem
 from urlparse import urljoin
 from scrapy.http import Request
 import re
+import datetime
+from scrapy import log
 import json
 import urllib2
 import urllib
 import urlparse
 import httplib2
-
-
 
 class SapoSpider(BaseSpider):
   name = "sapo"
@@ -22,7 +23,7 @@ class SapoSpider(BaseSpider):
 
   def parse(self, response):
     hxs = HtmlXPathSelector(response)
-    houses = hxs.select('//div[contains(@id, "ctl00_MC_result")]')
+    houses = hxs.select('//div[contains(@id, "MC_result")]')
     for house in houses:
       link = house.select('span/a/@href')[0].extract()
       yield Request(link,callback=self.parseHouse)
@@ -45,9 +46,22 @@ class SapoSpider(BaseSpider):
     item['link'] = response.url
     item['desc'] = hxs.select('//div[contains(@class, "detailDescription")]/h2/text()').extract()
     item['price'] = hxs.select('//div[contains(@class, "detailHeaderPriceValue")]/text()')[0].extract().strip()
-    item['state'] = hxs.select('//div[contains(@class, "detailInfo")]/p/*[contains(text(),"Estado")]').select('../span/text()').extract()
-    item['publication'] = hxs.select('//div[contains(@class, "detailInfo")]/p/*[contains(text(),"Publicado")]').select('../span/text()').extract()
-    item['size'] = item['title'].split(",")[0].split()[-1]
+    item['state'] = hxs.select('//div[contains(@class, "detailInfo")]/p/*[contains(text(),"Estado")]').select('../span/text()').extract()    
+    size_description = hxs.select('//div[contains(@class, "detaiHeaderProperty")]/text()')[0].extract().split(",")[0].strip()
+    if size_description == "Quarto":
+      item['size'] = 0
+    elif size_description == "Apartamento":
+      item['size'] = 1
+    else:
+      item['size'] = int(size_description.split()[-1].replace("T","").strip('+')[0])
+
+    item['publication'] = hxs.select('//div[contains(@class, "detailInfo")]/p/*[contains(text(),"Publicado")]').select('../span/text()').extract()[0]
+
+    computed_date = datetime.datetime.strptime(item['publication'], "%d-%m-%Y")
+    one_month_ago = datetime.datetime.today() - datetime.timedelta(days=30)
+    if computed_date < one_month_ago:
+      log.msg("Too old...", level=log.INFO)
+      raise CloseSpider('Houses are too old')
 
     image_urls = hxs.select('//a[contains(@id, "SmallFotos")]/@onclick').extract()
 
