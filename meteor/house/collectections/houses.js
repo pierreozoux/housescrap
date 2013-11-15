@@ -77,9 +77,9 @@ _.extend(House.prototype, {
     '</br>Publication date:  '+
     this.publication+
     '</br></br>'+
-    this.desc+
-    '</p>'+
     contentImage+
+    '</p>'+
+    this.desc+
     '</div>'+
     '</div>';
 
