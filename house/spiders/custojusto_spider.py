@@ -48,15 +48,13 @@ class CustojustoSpider(BaseSpider):
     try:
       Freguesia = hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Freguesia")]').select('../text()').extract()[1].strip()
     except:
-      print "No Freguesia"
+      log.msg("No Freguesia", level=log.INFO)
 
     item['address'] = Concelho + ' ' + Freguesia
     item['link'] = response.url
     item['size'] = int(hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Tipologia")]').select('../text()').extract()[1].strip().replace("T","")[0])
 
     item['desc'] = hxs.select('//div[contains(@class, "body_text")]/text()').extract()
-
-    item['price'] = hxs.select('//span[contains(@class, "coolprice")]/text()').extract()[0].strip()
 
     locale.setlocale(locale.LC_ALL, 'pt_PT')
     item['publication'] = hxs.select('//p[contains(@class,"right")]/text()').extract()[1].strip()
@@ -77,11 +75,21 @@ class CustojustoSpider(BaseSpider):
     image_from_script = hxs.select('//div[contains(@id, "slider")]/script/text()').extract()
     images_urls = image_from_script[0].split('[')[1].split(',')
     images_urls[-1] = images_urls[-1].split(']')[0]
-    item['lat'] = float(hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Ver mapa")]').select('../a/@onclick').extract()[0].split(',')[0].split('(')[1])
-    item['lng'] = float(hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Ver mapa")]').select('../a/@onclick').extract()[0].split(',')[1])
+    try:
+      item['lat'] = float(hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Ver mapa")]').select('../a/@onclick').extract()[0].split(',')[0].split('(')[1])
+      item['lng'] = float(hxs.select('//div[contains(@class, "info right")]/ul/li/*[contains(text(), "Ver mapa")]').select('../a/@onclick').extract()[0].split(',')[1])
+    except:
+      iri = "http://maps.googleapis.com/maps/api/geocode/json?address=" + item['address'] + "&sensor=true"
+      result = json.load(urllib2.urlopen(httplib2.iri2uri(iri).replace(" ","%20")))['results'][0]
+      item['lat'] = result['geometry']['location']['lat']
+      item['lng'] = result['geometry']['location']['lng']
 
     item['image_urls'] = []
     for image_url in images_urls:
-     item['image_urls'].append(image_url.replace("'",""))
+      item['image_urls'].append(image_url.replace("'",""))
+    try:
+      item['price'] = hxs.select('//span[contains(@class, "coolprice")]/text()').extract()[0].strip()
+      yield item
+    except:
+      log.msg("no prices, no houses", level=log.INFO)
 
-    yield item
