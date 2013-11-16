@@ -10,7 +10,17 @@ _.extend(House.prototype, {
       iconAnchor: [30, 28],
       html: "T" + this.size
     });
-    window.markers[this._id._str].setIcon(icon);
+    marker = window.markers[this.desc_hash]
+    if (marker){
+      marker.setIcon(icon);
+    }
+  },
+  setAsFavorit: function () {
+    marker = window.markers[this.desc_hash]
+    if (marker){
+      marker._icon.style.background = "#FF99FF";
+      marker._icon.style.zIndex = 1000;
+    }
   },
   addToMap: function () {
     marker = new L.marker([this.lat, this.lng]);
@@ -20,10 +30,27 @@ _.extend(House.prototype, {
     });
     marker.bindPopup("Current house", { offset: [-10, -22]});
     marker.price = this.price;
-    window.markers[this._id._str] = marker;
-    this.setIcon();
-    window.map.addLayer(marker);
-    this.setIconColor();
+    if (!window.markers[this.desc_hash]){
+      if (Nimbus.Auth.authorized()){
+        housePreference = HousesPreferences.findByAttribute("desc_hash", this.desc_hash)
+        if (housePreference){
+          if (housePreference.status == "removed"){
+            return false;
+          }
+        }
+      }
+      window.markers[this.desc_hash] = marker;
+      this.setIcon();
+      window.map.addLayer(marker);
+      this.setIconColor();
+    }
+  },
+  removeFromMap: function () {
+    marker = window.markers[this.desc_hash]
+    if (marker){
+      window.map.removeLayer(marker);
+      delete window.markers[this.desc_hash];
+    }
   },
   setIconColor: function () {
     var priceRange =   Session.get("priceHigh") - Session.get("priceLow"),
@@ -40,7 +67,10 @@ _.extend(House.prototype, {
       green = Math.round(255 - (percentage - 0.50)*2*255);
     }
     var colorHex = ((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1);
-    window.markers[this._id._str]._icon.style.borderColor = "#" + colorHex;
+    marker = window.markers[this.desc_hash]
+    if (marker){
+      marker._icon.style.borderColor = "#" + colorHex;
+    }
   },
   show: function () {
     var contentImage = "";
@@ -64,9 +94,12 @@ _.extend(House.prototype, {
     '</a>'+
     '</h1>'+
     '<div id="bodyContent">'+
-    '<button type="button" class="btn btn-danger" onclick="not_interesting(\''+
+    '<button type="button" onclick="favorit(\''+
     this.desc_hash+
-    '\')">Not interesting</button>'+
+    '\')">I add it to my Favorits!</button>'+
+    '<button type="button" onclick="not_interesting(\''+
+    this.desc_hash+
+    '\')">Not interesting...</button>'+
     '<p>'+
     'size: T'+
     this.size+
@@ -84,11 +117,7 @@ _.extend(House.prototype, {
     '</div>';
 
     $('#house').html(contentString);
-  },
-  removeFromMap: function () {
-    window.map.removeLayer(window.markers[this._id._str]);
   }
-
 });
 
 Houses = new Meteor.Collection("houses",{

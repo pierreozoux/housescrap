@@ -12,19 +12,22 @@ if (Meteor.isClient) {
     setBounds();
   }
 
-  Deps.autorun(function () {
-    Meteor.subscribe("houses",
-      Session.get("south"),
-      Session.get("north"),
-      Session.get("west"),
-      Session.get("east"),
-      Session.get("priceLow"), 
-      Session.get("priceHigh"), 
-      Session.get("typeLow")
-    );
-  });
-
+  // When price change, redraw houses
   Meteor.startup(function () {
+    Deps.autorun(function () {
+      Meteor.subscribe("houses",
+        Session.get("south"),
+        Session.get("north"),
+        Session.get("west"),
+        Session.get("east"),
+        Session.get("priceLow"), 
+        Session.get("priceHigh"), 
+        Session.get("typeLow")
+      );
+
+      check_all_houses();
+    });
+    
     Deps.autorun(function () {
       Houses.find({"price": {"$gt": Session.get("priceLow"), "$lt": Session.get("priceHigh")}}).forEach(function (house) {
         house.setIcon();

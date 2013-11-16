@@ -1,29 +1,34 @@
 if (Meteor.isClient) {
   Meteor.startup(function () {
 
-    HousesPreferences = Nimbus.Model.setup("Houses", ["desc_hash"]);
+    HousesPreferences = Nimbus.Model.setup("Houses", ["desc_hash", "status"]);
 
 
     Nimbus.Auth.authorized_callback = function() {
-      HousesPreferences = Nimbus.Model.setup("Houses", ["desc_hash"]);
+      HousesPreferences = Nimbus.Model.setup("Houses", ["desc_hash", "status"]);
       console.log("authentication finished o/");
       document.getElementById("auth").innerHTML="Log out!";
+      check_all_houses();
+    };
 
-      houses_to_remove = [];
-      HousesPreferences.each(function(house){
-        houses_to_remove.push(house.desc_hash);
-      });
-
-      Houses.find({}).forEach(function(house){
-        to_remove = houses_to_remove.indexOf(house.desc_hash);
-        console.log(to_remove);
-        if (to_remove >= 0) {
-          console.log("it has to be removed");
+    check_all_houses = function() {
+      // remove hosues
+      HousesPreferences.findAllByAttribute("status", "removed").forEach(function(housePreference){
+        console.log(housePreference.desc_hash);
+        house = Houses.findOne({desc_hash: housePreference.desc_hash})
+        if (house){
           house.removeFromMap();
         }
       });
 
-    }
+      // favorit houses
+      HousesPreferences.findAllByAttribute("status", "favorit").forEach(function(housePreference){
+        house = Houses.findOne({desc_hash: housePreference.desc_hash})
+        if (house){
+          house.setAsFavorit();
+        }
+      });
+    };
 
     log_out = function() {
       Nimbus.Auth.logout();
@@ -52,12 +57,23 @@ if (Meteor.isClient) {
     not_interesting = function(desc_hash) {
       if (Nimbus.Auth.authorized()){
         if (! HousesPreferences.findByAttribute("desc_hash", desc_hash)){
-          HousesPreferences.create({"desc_hash": desc_hash});
           console.log(desc_hash + ' should be removed');
+          HousesPreferences.create({"desc_hash": desc_hash, "status": "removed"});
           Houses.findOne({desc_hash: desc_hash}).removeFromMap();
           $('#house').html('');
-        }else {
-          console.log("House already deleted");
+        }
+      }else {
+        alert("Please connect with google!");
+      }
+    };
+
+    favorit = function(desc_hash) {
+      if (Nimbus.Auth.authorized()){
+        console.log(desc_hash);
+        if (! HousesPreferences.findByAttribute("desc_hash", desc_hash)){
+          console.log("saving...");
+          HousesPreferences.create({"desc_hash": desc_hash, "status": "favorit"});
+          Houses.findOne({desc_hash: desc_hash}).setAsFavorit();
         }
       }else {
         alert("Please connect with google!");
