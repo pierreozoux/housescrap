@@ -14,11 +14,8 @@ sudo easy_install pip
 sudo pip install Scrapy
 sudo pip install pil
 sudo pip install httplib2
-pip install "ScrapyMongoDB"
+sudo pip install "ScrapyMongoDB"
 gem install serve-this
-wget https://httplib2.googlecode.com/files/httplib2-0.8.tar.gz
-tar xvzf httplib2-0.8.tar.gz
-cd httplib2-0.8
 sudo python setup.py install
 ````
 Usage
