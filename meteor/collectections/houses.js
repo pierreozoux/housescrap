@@ -6,8 +6,8 @@ _.extend(House.prototype, {
   setIcon: function () {
     var icon = L.divIcon({
       className: "houses",
-      iconSize: [22, 21],
-      iconAnchor: [30, 28],
+      iconSize: [17, 17],
+      iconAnchor: [29, 28],
       html: "T" + this.size
     });
     marker = window.markers[this.desc_hash]

@@ -1,11 +1,10 @@
 .houses{
   background: white;
-  width: 22px;
-  height: 21px;
-  border: 8px;
+  border: 4px;
   border-style: solid; 
-  border-radius: 39px 39px 0px 39px;
+  border-radius: 19px 19px 0px 19px;
   color: black;
-  padding-left: 8px;
-  padding-top: 7px
+  padding-left: 4px;
+  padding-top: 3px;
+  font-weight: bold;
 }
