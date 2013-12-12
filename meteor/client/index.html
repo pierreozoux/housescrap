@@ -4,7 +4,7 @@
 
 <body>
   {{> form}}
-  <div id="house" style="padding:10px;z-index: 10; position: absolute; top: 30px;right: 0; width: 300px; height: 100%; background-color:#ffffff;"></div>
+  <div id="house"></div>
   {{> map}}
 </body>
 
@@ -14,12 +14,12 @@
 
 
 <template name="form">
-  <div style="width=300px;float:left;">
+  <div id="form">
     <form onSubmit="getValue(); return false;">
       Price range:
-      <input type="number" id="priceLow" style="width:4em" maxlength="4">
+      <input type="number" id="priceLow" class="price_input" maxlength="4">
       :
-      <input type="number" id="priceHigh" style="width:4em" maxlength="4">
+      <input type="number" id="priceHigh" class="price_input" maxlength="4">
       Beds+:
       <select id="typeLow">
         <option>0</option>
@@ -33,7 +33,7 @@
       <button type="submit" class="btn btn-default">Find Da House!</button>
     </form>
   </div>
-  <div id="connexion" style="float:right;right:0;">
+  <div id="connexion">
     <button id="auth" type="button"  onclick="auth()">Connect with Google!</button>
   </div>
 </template>
