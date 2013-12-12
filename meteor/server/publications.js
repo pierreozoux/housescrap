@@ -15,5 +15,8 @@ Meteor.publish("houses", function (mapSouth, mapNorth, mapWest, mapEast, priceLo
     "size": {
       "$gte": typeLow
     }
+  },
+  {
+    "sort": ["publication", "desc"]
   });
 });
