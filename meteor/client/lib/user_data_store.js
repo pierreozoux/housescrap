@@ -12,7 +12,7 @@ if (Meteor.isClient) {
     };
 
     check_all_houses = function() {
-      // remove hosues
+      // remove houses
       HousesPreferences.findAllByAttribute("status", "removed").forEach(function(housePreference){
         console.log(housePreference.desc_hash);
         house = Houses.findOne({desc_hash: housePreference.desc_hash})
