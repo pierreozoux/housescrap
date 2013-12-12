@@ -42,9 +42,11 @@ scrapy shell http://www.custojusto.pt/Lisboa\?ca\=14_s\&th\=1\&q\=\&cg\=1020\&w\
 
 ToDo
 ====
-- add favorit
-- put houses data from my computer to the production database
-- automatise house scrapping
+- handle collission
+- add google-connect button
+- better "pop-up" to connect
+- in div visualisation
+- about page to explain the project/ bio attitude
+- better design of the form
 - automatise house cleaning in the database
-- put this 2 automations in Raspberry (in a daily task)
 - clean houses from user data_store
