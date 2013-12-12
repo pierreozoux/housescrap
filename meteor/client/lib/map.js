@@ -1,12 +1,13 @@
 if (Meteor.isClient) {
 
-  window.resize=function(){
+  $(window).resize(function() {
     divmap = document.getElementById('map');
     var height = $(document).height() - 50;
-    var width = $(document).width() - 300;
+    var width = $(document).width() - 320;
     divmap.style.height = height+"px";
     divmap.style.width = width+"px";
-  };
+    document.getElementById('house').style.height = height+"px";;
+  });
 
   setBounds = function(e){
     Session.set("south", window.map.getBounds().getSouth());
@@ -22,6 +23,7 @@ if (Meteor.isClient) {
       maxZoom: 18,
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
     }).addTo(map);
+
     return map;
   };
 }
