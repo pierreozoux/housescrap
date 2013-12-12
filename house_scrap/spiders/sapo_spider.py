@@ -20,6 +20,8 @@ class SapoSpider(BaseSpider):
   start_urls = [
       "http://casa.sapo.pt/Alugar/Apartamentos/Lisboa/?sa=11&or=10&AOP=1"
   ]
+  close_down = None
+
 
   def parse(self, response):
     hxs = HtmlXPathSelector(response)
@@ -35,9 +37,11 @@ class SapoSpider(BaseSpider):
     else:
       next_url = urljoin(response.url,next_page)
       # uncomment the next one if you want to scrap more than the first page
-      #yield Request(next_url,callback=self.parse)
+      yield Request(next_url,callback=self.parse)
 
   def parseHouse(self, response):
+    if self.close_down:
+      raise CloseSpider(reason='Duplicate house')
     hxs = HtmlXPathSelector(response)
     item = HouseItem()
     item['currency'] = "€"

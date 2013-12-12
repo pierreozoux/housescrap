@@ -21,6 +21,7 @@ class CustojustoSpider(BaseSpider):
   start_urls = [
       "http://www.custojusto.pt/Lisboa?ca=14_s&th=1&q=&cg=1020&w=114%3A213&st=u&ps=&pe=&ros=&roe=&ss=&se="
   ]
+  close_down = None
 
   def parse(self, response):
     hxs = HtmlXPathSelector(response)
@@ -36,9 +37,11 @@ class CustojustoSpider(BaseSpider):
     else:
       next_url = urljoin(response.url,next_page)
       # uncomment the next one if you want to scrap more than the first page
-      #yield Request(next_url,callback=self.parse)
+      yield Request(next_url,callback=self.parse)
 
   def parseHouse(self, response):
+    if self.close_down:
+      raise CloseSpider(reason='Duplicate house')
     hxs = HtmlXPathSelector(response)
     item = HouseItem()
     item['currency'] = "€"
