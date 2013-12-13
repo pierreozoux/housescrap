@@ -42,7 +42,6 @@ scrapy shell http://www.custojusto.pt/Lisboa\?ca\=14_s\&th\=1\&q\=\&cg\=1020\&w\
 
 ToDo
 ====
-- handle collission
 - add google-connect button
 - better "pop-up" to connect
 - in div visualisation

@@ -1,3 +1,16 @@
+function getRandomOffset() {
+  var min = 7;
+  var max = 50;
+  var sign = 0;
+  if (Math.random() > 0.5){
+    sign = 1;
+  } else {
+    sign = -1;
+  }
+
+  return sign*(Math.floor(Math.random() * (max - min + 1)) + min)/100000;
+};
+
 House = function (document) {
   _.extend(this, document);
 };
@@ -23,7 +36,17 @@ _.extend(House.prototype, {
     }
   },
   addToMap: function () {
-    marker = new L.marker([this.lat, this.lng]);
+    var offsetLat = 0;
+    var offsetLng = 0;
+    for (var key in window.markers) {
+      marker = window.markers[key];
+      if (marker.getLatLng().lat === this.lat && marker.getLatLng().lng === this.lng){
+        offsetLat = getRandomOffset();
+        offsetLng = getRandomOffset();
+        break;
+      }
+    }
+    marker = new L.marker([this.lat + offsetLat, this.lng + offsetLng]);
     var house = eval(this);
     marker.on('click', function(){
       house.show();
