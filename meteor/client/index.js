@@ -1,7 +1,7 @@
 if (Meteor.isClient) {
 
   Session.setDefault("priceLow", 300);
-  Session.setDefault("priceHigh", 500);
+  Session.setDefault("priceHigh", 350);
   Session.setDefault("typeLow", 0);
   window.markers = [];
 
