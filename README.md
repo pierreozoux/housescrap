@@ -3,9 +3,7 @@ housescrap
 
 A lot of house finder are just crap, right? So, let's scrap their houses and display them in a proper map!!
 
-[Live demo](http://pierreozoux.github.io/housescrap/)
-
-![picture](https://raw.github.com/pierreozoux/housescrap/master/assets/readme.jpg)
+[Live demo](http://findahouse.meteor.com)
 
 Installation
 ============
@@ -17,11 +15,12 @@ sudo pip install httplib2
 sudo pip install "ScrapyMongoDB"
 gem install serve-this
 sudo python setup.py install
+# install meteor
 ````
 Usage
 =====
 ````
-./script/start.sh
+cd meteor; mrt -p 3000
 ````
 
 Hack
