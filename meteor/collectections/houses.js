@@ -109,35 +109,38 @@ _.extend(House.prototype, {
   },
   slideshow: function (number) {    
     var house = this;
-    var image = "<img class='image-slide' src=" +
-    house.image_urls[number] +
-    " height='180' width='240'>";
+    if (house.image_urls[0]) {
+      var image = "<img class='image-slide' src=" +
+      house.image_urls[number] +
+      " height='180' width='240'>";
 
-    var slideshow = image +
-    "<div class='nav'>" +
-    "<a id='nav_prev'></a>" +
-    "<a id='nav_next'></a>" +
-    "</div>"
+      var slideshow = image +
+      "<div class='nav'>" +
+      "<a id='nav_prev'></a>" +
+      "<a id='nav_next'></a>" +
+      "</div>"
 
-    $('#slide_container').html(slideshow);
-    $(document).off('click', '#nav_prev');
-    $(document).off('click', '#nav_next');
+      $('#slide_container').html(slideshow);
+      $(document).off('click', '#nav_prev');
+      $(document).off('click', '#nav_next');
 
-    $(document).on('click', '#nav_prev', function(){
-      if (house.image_urls[number - 1 ]){
-        house.slideshow(number - 1);
-      } else {
-        house.slideshow(house.image_urls.length - 1);
-      }
-    });
-    $(document).on('click', '#nav_next', function(){
-      if (house.image_urls[number + 1 ]){
-        house.slideshow(number + 1);
-      } else {
-        house.slideshow(0);
-      }
-      
-    });
+      $(document).on('click', '#nav_prev', function(){
+        if (house.image_urls[number - 1 ]){
+          house.slideshow(number - 1);
+        } else {
+          house.slideshow(house.image_urls.length - 1);
+        }
+      });
+      $(document).on('click', '#nav_next', function(){
+        if (house.image_urls[number + 1 ]){
+          house.slideshow(number + 1);
+        } else {
+          house.slideshow(0);
+        }
+      });  
+    } else {
+      $('#slide_container').html("No preview available..");
+    }
   },
   popupContent: function(favorit) {
     var house = this;
