@@ -2,21 +2,48 @@ body {
   margin: 0px;
 }
 
-#house {
-  padding: 10px;
-  z-index: 10;
-  position: absolute;
-  top: 30px;
-  right: 0;
-  width: 300px;
-  height: 10px;
-  background-color:#ffffff;
+body, html {
+  height: 100%;
+}
+
+#map {
+  float: left;
 }
 
 #form {
-  width: 400px;
-  height: 30px;
+  height: 60px;
+  top:0px;
+  padding: 10px;
+}
+
+.fa {
+  transition: 1s;
+  cursor: pointer;
+}
+
+.fa-star, .fa-star-o, .fa-trash-o {
+  margin-left: 10px;
+}
+
+.form-div {
+  position: absolute;
   float: left;
+  z-index: 110;
+  -webkit-transition: top 0.5s;
+  transition: 1s;
+  background-color: rgba(256,256,256,0.9);
+  border-bottom-right-radius:10px;
+  border-bottom-left-radius:10px;
+  transition-timing-function:ease-in-out;
+}
+
+#hide-show {
+  top: 80px;
+  width: 30px;
+  height: 25px;
+  left: 380px;
+  padding-top: 5px;
+  cursor: pointer;
 }
 
 #connexion {
@@ -27,4 +54,84 @@ body {
 
 .price_input {
   width: 4em;
+}
+
+h1, p {
+  margin: 1px;
+}
+
+#slide_container {
+  height: 180px;
+  width: 240px;
+}
+
+.nav {
+  margin-top: -183px;
+  height: 180px;
+  width: 240px;
+  outline: none;
+  position: relative;
+}
+
+#nav_prev, #nav_next {
+  background-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+  height: 180px;
+  width: 120px;
+  z-index: 10;
+  display: block;
+}
+
+#nav_prev {
+  float: left;
+}
+
+#nav_next {
+  float: right;
+}
+
+#nav_next:hover {
+  background: url(../images/next.png) right -10px top 65px no-repeat;
+}
+
+#nav_prev:hover {
+  background: url(../images/prev.png) left -10px top 65px no-repeat;
+}
+
+.image-slide {
+  display: inline;
+  z-index: 0;
+}
+
+#price_container {
+  width:300px;
+  margin: 10px;
+  float: left;
+}
+
+#bed {
+  width: 100px;
+  margin: 10px;
+  float: left;
+}
+
+#amount {
+  float: left;
+  margin-left: 10px;
+}
+
+label {
+  margin-left: 10px;
+  float: left;
+}
+
+#slider-range {
+  margin-left: 20px;
+  margin-top: 30px;
+}
+
+.ui-slider-range {
+  background: -webkit-linear-gradient(left, #00FF00, yellow, red) !important; /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(left, #00FF00, yellow, red) !important; /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(left, #00FF00, yellow, red) !important; /* For Firefox 3.6 to 15 */
+  background: linear-gradient(left, #00FF00, yellow, red) !important; /* Standard syntax */
 }

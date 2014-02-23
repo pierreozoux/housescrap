@@ -4,8 +4,8 @@
 
 <body>
   {{> form}}
-  <div id="house"></div>
   {{> map}}
+  {{> data-store}}
 </body>
 
 <template name="map">
@@ -14,12 +14,8 @@
 
 
 <template name="form">
-  <div id="form">
-    <form onSubmit="getValue(); return false;">
-      Price range:
-      <input type="number" id="priceLow" class="price_input" maxlength="4">
-      :
-      <input type="number" id="priceHigh" class="price_input" maxlength="4">
+  <div id="form" class="form-div">
+    <form id="bed" onSubmit="getValue(); return false;">
       Beds+:
       <select id="typeLow">
         <option>0</option>
@@ -30,10 +26,24 @@
         <option>5</option>
         <option>6</option>
       </select>
-      <button type="submit" class="btn btn-default">Find Da House!</button>
     </form>
+
+    <div id="price_container">
+      <label>Price :</label>
+      <div id="amount"></div>
+      <div id="slider-range"></div>
+    </div>
+
+    <div id="hide-show" class="form-div">
+      <center><i id="chevron" class="fa fa-chevron-circle-up"></i></center>
+    </div>
   </div>
-  <div id="connexion">
-    <button id="auth" type="button"  onclick="auth()">Connect with Google!</button>
+</template>
+
+<template name="data-store">
+  <div id="background-popup" onclick="hideLogin()"></div>
+  <div id="data-store" class="form-div">
+    In order to save your preferences, please login with your Google account.
+    <center><img id="google" src="images/google.png" onclick="auth()"></center>
   </div>
 </template>

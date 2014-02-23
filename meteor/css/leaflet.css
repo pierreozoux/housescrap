@@ -396,15 +396,15 @@
 .leaflet-popup-content-wrapper {
 	padding: 1px;
 	text-align: left;
-	-webkit-border-radius: 12px;
-	        border-radius: 12px;
+/*	-webkit-border-radius: 12px;
+	        border-radius: 12px;*/
 	}
 .leaflet-popup-content {
-	margin: 13px 19px;
+	margin: 3px;
 	line-height: 1.4;
 	}
 .leaflet-popup-content p {
-	margin: 18px 0;
+	margin: 0px;
 	}
 .leaflet-popup-tip-container {
 	margin: 0 auto;

@@ -1,12 +1,15 @@
 if (Meteor.isClient) {
 
-  $(window).resize(function() {
-    divmap = document.getElementById('map');
-    var height = $(document).height() - 50;
-    var width = $(document).width() - 320;
-    divmap.style.height = height+"px";
-    divmap.style.width = width+"px";
-    document.getElementById('house').style.height = height+"px";;
+  $( window ).resize(function() {
+    // resize map
+    var height = window.innerHeight;
+    var width = window.innerWidth;
+    document.getElementById('map').style.height = height+"px";
+    document.getElementById('map').style.width = width+"px";
+
+    // put the form div in the center
+    document.getElementById("form").style.left = ((width - 460)/2) + "px";
+    document.getElementById("data-store").style.left = ((width - 400)/2) + "px";
   });
 
   setBounds = function(e){
@@ -24,6 +27,13 @@ if (Meteor.isClient) {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
     }).addTo(map);
 
+    map.on('popupopen', function(e) {
+      var marker = e.popup._source;
+      marker.house.slideshow(0);
+      hideForm();
+    });
+
     return map;
   };
+
 }

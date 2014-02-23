@@ -34,6 +34,19 @@ _.extend(House.prototype, {
       marker._icon.style.background = "#FF99FF";
       marker._icon.style.zIndex = 1000;
     }
+    if (marker._popup._isOpen) {
+      document.getElementById(this.desc_hash + '-star').className = "fa fa-star";
+    } else {
+      marker.bindPopup(house.popupContent(true), { maxWidth: 240, offset: [-14, -22]});
+    }
+  },
+  unsetAsFavorit: function () {
+    marker = window.markers[this.desc_hash]
+    if (marker){
+      marker._icon.style.background = "#FFFFFF";
+      marker._icon.style.zIndex = 100;
+    }
+    document.getElementById(this.desc_hash + '-star').className = "fa fa-star-o"
   },
   addToMap: function () {
     var offsetLat = 0;
@@ -48,11 +61,10 @@ _.extend(House.prototype, {
     }
     marker = new L.marker([this.lat + offsetLat, this.lng + offsetLng]);
     var house = eval(this);
-    marker.on('click', function(){
-      house.show();
-    });
-    marker.bindPopup("Current house", { offset: [-10, -22]});
+    marker.bindPopup(house.popupContent(), { maxWidth: 240, offset: [-14, -22]});
+
     marker.price = this.price;
+    marker.house = house;
     if (!window.markers[this.desc_hash]){
       if (Nimbus.Auth.authorized()){
         housePreference = HousesPreferences.findByAttribute("desc_hash", this.desc_hash)
@@ -95,16 +107,55 @@ _.extend(House.prototype, {
       marker._icon.style.borderColor = "#" + colorHex;
     }
   },
-  show: function () {
-    var contentImage = "";
+  slideshow: function (number) {    
+    var house = this;
+    var image = "<img class='image-slide' src=" +
+    house.image_urls[number] +
+    " height='180' width='240'>";
 
-    for (var i in this.image_urls){
-      contentImage += '<a href="'
-      contentImage += this.image_urls[i]
-      contentImage += '" rel="lightbox[house:images]" title="my caption"><img src="'
-      contentImage += this.image_urls[i]
-      contentImage += '" height="60" width="80"></a>'
-    };
+    var slideshow = image +
+    "<div class='nav'>" +
+    "<a id='nav_prev'></a>" +
+    "<a id='nav_next'></a>" +
+    "</div>"
+
+    $('#slide_container').html(slideshow);
+    $(document).off('click', '#nav_prev');
+    $(document).off('click', '#nav_next');
+
+    $(document).on('click', '#nav_prev', function(){
+      if (house.image_urls[number - 1 ]){
+        house.slideshow(number - 1);
+      } else {
+        house.slideshow(house.image_urls.length - 1);
+      }
+    });
+    $(document).on('click', '#nav_next', function(){
+      if (house.image_urls[number + 1 ]){
+        house.slideshow(number + 1);
+      } else {
+        house.slideshow(0);
+      }
+      
+    });
+  },
+  popupContent: function(favorit) {
+    var house = this;
+
+    function title() {
+      var title_ret = house.address.replace("Lisboa", "").trim();
+      if (title_ret === ""){
+        return "Lisboa";
+      } else {
+        return title_ret;
+      }
+    }
+
+    if (favorit) {
+      class_star = "fa-star";
+    } else {
+      class_star = "fa-star-o";
+    }
 
     var contentString = '<div id="content">'+
     '<div id="siteNotice">'+
@@ -113,33 +164,32 @@ _.extend(House.prototype, {
     '<a href="'+
     this.link+
     '" target="_blank">'+
-    this.address+
+    title()+
     '</a>'+
+    '<i id="'+this.desc_hash+'-star" class="fa ' + class_star + '" onclick="favorit(\''+
+    this.desc_hash+
+    '\')"></i>'+
+    '<i class="fa fa-trash-o" onclick="not_interesting(\''+
+    this.desc_hash+
+    '\')"></i>'+
     '</h1>'+
     '<div id="bodyContent">'+
-    '<button type="button" onclick="favorit(\''+
-    this.desc_hash+
-    '\')">I add it to my Favorits!</button>'+
-    '<button type="button" onclick="not_interesting(\''+
-    this.desc_hash+
-    '\')">Not interesting...</button>'+
     '<p>'+
-    'size: T'+
-    this.size+
-    '</br>estado:            '+
+    '</br>Price:            '+
+    this.price+
+    '€'+
+    '</br>Estado:            '+
     this.state+
-    '</br>price:            '+
-    this.price+"€"+
     '</br>Publication date:  '+
     this.publication+
     '</br></br>'+
-    contentImage+
+    '<div id="slide_container"></div>'
     '</p>'+
-    this.desc+
+    //this.desc+
     '</div>'+
     '</div>';
 
-    $('#house').html(contentString);
+    return contentString
   }
 });
 

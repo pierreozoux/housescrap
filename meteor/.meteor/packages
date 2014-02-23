@@ -5,3 +5,7 @@
 
 standard-app-packages
 preserve-inputs
+jquery-ui
+jquery-ui-bootstrap
+font-awesome
+purecss
