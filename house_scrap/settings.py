@@ -15,6 +15,7 @@ ITEM_PIPELINES = [
   'house_scrap.pipelines.DescHashPipeline',
   'house_scrap.pipelines.TitlePipeline',
   'house_scrap.pipelines.PricePipeline',
+  'house_scrap.pipelines.DatePipeline',
   'house_scrap.scrapy_mongodb.MongoDBPipeline'
   ]
 

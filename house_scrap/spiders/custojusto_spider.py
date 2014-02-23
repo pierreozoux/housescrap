@@ -70,6 +70,7 @@ class CustojustoSpider(BaseSpider):
         year = datetime.date.today().year
 
       computed_date = datetime.datetime.strptime(item['publication'] + ' %d' % year, "%d %b %H:%M %Y")
+      item['publication'] = computed_date.strftime("%d-%m-%Y")
       one_month_ago = datetime.datetime.today() - datetime.timedelta(days=30)
       if computed_date < one_month_ago:
         log.msg("Too old...", level=log.INFO)

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import re
 import hashlib
+import datetime
 
 # Define your item pipelines here
 #
@@ -31,3 +33,14 @@ class PricePipeline(object):
 
     item['price'] = int(price)
     return item
+
+class DatePipeline(object):
+  def process_item(self, item, spider):
+    if re.match("Hoje", item['publication']):
+      item['publication'] = datetime.date.today().strftime("%d-%m-%Y")
+
+    if re.match("Ontem", item['publication']):
+      item['publication'] = (datetime.date.today() - datetime.timedelta(1)).strftime("%d-%m-%Y")
+
+    return item
+
