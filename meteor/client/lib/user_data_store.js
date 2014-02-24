@@ -9,17 +9,17 @@ if (Meteor.isClient) {
       console.log("authentication finished o/");
       document.getElementById("data-store").innerHTML="You are now Logged in!</br><center><button type='button' class='pure-button button-warning' onclick='auth()'>Log out!</button></center>";
       hideLogin();
-      if (window.action_pending == "favorit") {
-        favorit(window.house_pending);
-      } else if (window.action_pending == "delete") {
-        not_interesting(window.house_pending);
+      if (window.actionPending == "favorit") {
+        favorit(window.housePending);
+      } else if (window.actionPending == "delete") {
+        remove(window.housePending);
       }
-      window.action_pending = null;
-      window.house_pending = null;
-      check_all_houses();
+      window.actionPending = null;
+      window.housePending = null;
+      checkAllHouses();
     };
 
-    check_all_houses = function() {
+    checkAllHouses = function() {
       // remove houses
       HousesPreferences.findAllByAttribute("status", "removed").forEach(function(housePreference){
         house = Houses.findOne({desc_hash: housePreference.desc_hash})
@@ -37,7 +37,7 @@ if (Meteor.isClient) {
       });
     };
 
-    log_out = function() {
+    logOut = function() {
       Nimbus.Auth.logout();
       console.log("Logged Out");
       document.getElementById("data-store").innerHTML="In order to save your preferences, please login with your Google account.<center><img id='google' src='images/google.png' onclick='auth()''></center>";
@@ -45,31 +45,31 @@ if (Meteor.isClient) {
 
     auth = function() {
       if (Nimbus.Auth.authorized()){
-        log_out();
+        logOut();
       }else{
-        connect_google();
+        connectGoogle();
       }
     };    
 
-    connect_dropbox = function() {
+    connectDropbox = function() {
       Nimbus.Auth.authorize('Dropbox');
       console.log("Connect Dropbox....");
     };
     
-    connect_google = function() {
+    connectGoogle = function() {
       Nimbus.Auth.authorize('GDrive');
       console.log("Connect Google....");
     };
 
-    not_interesting = function(desc_hash) {
+    remove = function(desc_hash) {
       if (Nimbus.Auth.authorized()){
         if (! HousesPreferences.findByAttribute("desc_hash", desc_hash)){
           HousesPreferences.create({"desc_hash": desc_hash, "status": "removed"});
           Houses.findOne({desc_hash: desc_hash}).removeFromMap();
         }
       }else {
-        window.action_pending = "delete";
-        window.house_pending = desc_hash
+        window.actionPending = "delete";
+        window.housePending = desc_hash
         showLogin();
       }
     };
@@ -86,8 +86,8 @@ if (Meteor.isClient) {
           Houses.findOne({desc_hash: desc_hash}).unsetAsFavorit();
         }
       }else {
-        window.action_pending = "favorit";
-        window.house_pending = desc_hash
+        window.actionPending = "favorit";
+        window.housePending = desc_hash
         showLogin();
       }
     };

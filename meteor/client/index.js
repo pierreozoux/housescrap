@@ -25,7 +25,7 @@ if (Meteor.isClient) {
         Session.get("typeLow")
       );
 
-      check_all_houses();
+      checkAllHouses();
     });
     
     Deps.autorun(function () {

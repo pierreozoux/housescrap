@@ -116,22 +116,22 @@ _.extend(House.prototype, {
 
       var slideshow = image +
       "<div class='nav'>" +
-      "<a id='nav_prev'></a>" +
-      "<a id='nav_next'></a>" +
+      "<a id='nav-prev'></a>" +
+      "<a id='nav-next'></a>" +
       "</div>"
 
-      $('#slide_container').html(slideshow);
-      $(document).off('click', '#nav_prev');
-      $(document).off('click', '#nav_next');
+      $('#slide-container').html(slideshow);
+      $(document).off('click', '#nav-prev');
+      $(document).off('click', '#nav-next');
 
-      $(document).on('click', '#nav_prev', function(){
+      $(document).on('click', '#nav-prev', function(){
         if (house.image_urls[number - 1 ]){
           house.slideshow(number - 1);
         } else {
           house.slideshow(house.image_urls.length - 1);
         }
       });
-      $(document).on('click', '#nav_next', function(){
+      $(document).on('click', '#nav-next', function(){
         if (house.image_urls[number + 1 ]){
           house.slideshow(number + 1);
         } else {
@@ -139,25 +139,25 @@ _.extend(House.prototype, {
         }
       });  
     } else {
-      $('#slide_container').html("No preview available..");
+      $('#slide-container').html("No preview available..");
     }
   },
   popupContent: function(favorit) {
-    var house = this;
+    house = this;
 
     function title() {
-      var title_ret = house.address.replace("Lisboa", "").trim();
-      if (title_ret === ""){
+      title = house.address.replace("Lisboa", "").trim();
+      if (title === ""){
         return "Lisboa";
       } else {
-        return title_ret;
+        return title;
       }
     }
 
     if (favorit) {
-      class_star = "fa-star";
+      classStar = "fa-star";
     } else {
-      class_star = "fa-star-o";
+      classStar = "fa-star-o";
     }
 
     var contentString = '<div id="content">'+
@@ -169,10 +169,10 @@ _.extend(House.prototype, {
     '" target="_blank">'+
     title()+
     '</a>'+
-    '<i id="'+this.desc_hash+'-star" class="fa ' + class_star + '" onclick="favorit(\''+
+    '<i id="'+this.desc_hash+'-star" class="fa ' + classStar + '" onclick="favorit(\''+
     this.desc_hash+
     '\')"></i>'+
-    '<i class="fa fa-trash-o" onclick="not_interesting(\''+
+    '<i class="fa fa-trash-o" onclick="remove(\''+
     this.desc_hash+
     '\')"></i>'+
     '</h1>'+
@@ -186,7 +186,7 @@ _.extend(House.prototype, {
     '</br>Publication date:  '+
     this.publication+
     '</br></br>'+
-    '<div id="slide_container"></div>'
+    '<div id="slide-container"></div>'
     '</p>'+
     //this.desc+
     '</div>'+

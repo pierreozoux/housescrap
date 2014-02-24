@@ -52,15 +52,11 @@ body, html {
   height: 30px;
 }
 
-.price_input {
-  width: 4em;
-}
-
 h1, p {
   margin: 1px;
 }
 
-#slide_container {
+#slide-container {
   height: 180px;
   width: 240px;
 }
@@ -73,7 +69,7 @@ h1, p {
   position: relative;
 }
 
-#nav_prev, #nav_next {
+#nav-prev, #nav-next {
   background-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
   height: 180px;
   width: 120px;
@@ -81,19 +77,19 @@ h1, p {
   display: block;
 }
 
-#nav_prev {
+#nav-prev {
   float: left;
 }
 
-#nav_next {
+#nav-next {
   float: right;
 }
 
-#nav_next:hover {
+#nav-next:hover {
   background: url(../images/next.png) right -10px top 65px no-repeat;
 }
 
-#nav_prev:hover {
+#nav-prev:hover {
   background: url(../images/prev.png) left -10px top 65px no-repeat;
 }
 
@@ -102,7 +98,7 @@ h1, p {
   z-index: 0;
 }
 
-#price_container {
+#price-container {
   width:300px;
   margin: 10px;
   float: left;
