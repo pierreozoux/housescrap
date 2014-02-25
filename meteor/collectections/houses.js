@@ -9,7 +9,7 @@ function getRandomOffset() {
   }
 
   return sign*(Math.floor(Math.random() * (max - min + 1)) + min)/100000;
-};
+}
 
 House = function (document) {
   _.extend(this, document);
@@ -23,30 +23,37 @@ _.extend(House.prototype, {
       iconAnchor: [29, 28],
       html: "T" + this.size
     });
-    marker = window.markers[this.desc_hash]
+    marker = window.markers[this.desc_hash];
     if (marker){
       marker.setIcon(icon);
     }
   },
   setAsFavorit: function () {
-    marker = window.markers[this.desc_hash]
+    marker = window.markers[this.desc_hash];
     if (marker){
       marker._icon.style.background = "#FF99FF";
       marker._icon.style.zIndex = 1000;
     }
     if (marker._popup._isOpen) {
-      document.getElementById(this.desc_hash + '-star').className = "fa fa-star";
-    } else {
-      marker.bindPopup(house.popupContent(true), { maxWidth: 240, offset: [-14, -22]});
+      starClass = this.desc_hash + '-star';
+      document.getElementById(starClass).className = "fa fa-star";
     }
+    marker.bindPopup(
+      house.popupContent(true),
+      {
+        maxWidth: 240,
+        offset: [-14, -22]
+      }
+    );
   },
   unsetAsFavorit: function () {
-    marker = window.markers[this.desc_hash]
+    marker = window.markers[this.desc_hash];
     if (marker){
       marker._icon.style.background = "#FFFFFF";
       marker._icon.style.zIndex = 100;
     }
-    document.getElementById(this.desc_hash + '-star').className = "fa fa-star-o"
+    starClass = this.desc_hash + '-star';
+    document.getElementById(starClass).className = "fa fa-star-o";
   },
   addToMap: function () {
     var offsetLat = 0;
@@ -61,15 +68,24 @@ _.extend(House.prototype, {
     }
     marker = new L.marker([this.lat + offsetLat, this.lng + offsetLng]);
     var house = eval(this);
-    marker.bindPopup(house.popupContent(), { maxWidth: 240, offset: [-14, -22]});
+    marker.bindPopup(
+      house.popupContent(),
+      {
+        maxWidth: 240,
+        offset: [-14, -22]
+      }
+    );
 
     marker.price = this.price;
     marker.house = house;
     if (!window.markers[this.desc_hash]){
       if (Nimbus.Auth.authorized()){
-        housePreference = HousesPreferences.findByAttribute("desc_hash", this.desc_hash)
+        housePreference = HousesPreferences.findByAttribute(
+          "desc_hash",
+          this.desc_hash
+        )
         if (housePreference){
-          if (housePreference.status == "removed"){
+          if (housePreference.status === "removed"){
             return false;
           }
         }
@@ -81,14 +97,14 @@ _.extend(House.prototype, {
     }
   },
   removeFromMap: function () {
-    marker = window.markers[this.desc_hash]
+    marker = window.markers[this.desc_hash];
     if (marker){
       window.map.removeLayer(marker);
       delete window.markers[this.desc_hash];
     }
   },
   setIconColor: function () {
-    var priceRange =   Session.get("priceHigh") - Session.get("priceLow"),
+    var priceRange = Session.get("priceHigh") - Session.get("priceLow"),
         amplitude = $.trim(this.price) - Session.get("priceLow"),
         percentage = amplitude/priceRange,
         blue = 0,

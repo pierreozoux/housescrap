@@ -12,7 +12,7 @@ if (Meteor.isClient) {
     document.getElementById("data-store").style.left = ((width - 400)/2) + "px";
   });
 
-  setBounds = function(e){
+  setBounds = function(){
     Session.set("south", window.map.getBounds().getSouth());
     Session.set("north", window.map.getBounds().getNorth());
     Session.set("west", window.map.getBounds().getWest());

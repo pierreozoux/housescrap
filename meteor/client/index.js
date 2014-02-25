@@ -10,7 +10,7 @@ if (Meteor.isClient) {
     window.map = initializeMap();
     window.map.on('moveend', setBounds);
     setBounds();
-  }
+  };
 
   // When price change, redraw houses
   Meteor.startup(function () {
@@ -20,8 +20,8 @@ if (Meteor.isClient) {
         Session.get("north"),
         Session.get("west"),
         Session.get("east"),
-        Session.get("priceLow"), 
-        Session.get("priceHigh"), 
+        Session.get("priceLow"),
+        Session.get("priceHigh"),
         Session.get("typeLow")
       );
 
@@ -29,7 +29,12 @@ if (Meteor.isClient) {
     });
     
     Deps.autorun(function () {
-      Houses.find({"price": {"$gt": Session.get("priceLow"), "$lt": Session.get("priceHigh")}}).forEach(function (house) {
+      Houses.find({
+        "price": {
+          "$gt": Session.get("priceLow"),
+          "$lt": Session.get("priceHigh")
+        }
+      }).forEach(function (house) {
         house.setIcon();
         house.setIconColor();
       });

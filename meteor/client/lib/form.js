@@ -21,30 +21,32 @@ if (Meteor.isClient) {
     });
 
     $('#bed').change(function() {
-        var val = $("#bed option:selected").text();
         Session.set("typeLow",parseInt($('#typeLow').val()));
-    });
+      }
+    );
 
-    document.getElementById('form').style.top = "0px"
+    document.getElementById('form').style.top = "0px";
 
     hideForm = function() {
-      if (document.getElementById('form').style.top == "0px") {
+      if (document.getElementById('form').style.top === "0px") {
         document.getElementById('form').style.top = -80 + "px";
-        document.getElementById('chevron').style.webkitTransform = "rotate(0.5turn)";
+        var rotate = "rotate(0.5turn)";
+        document.getElementById('chevron').style.webkitTransform = rotate;
       }
-    }
+    };
 
     showHideForm = function() {
-      if (document.getElementById('form').style.top == "0px") {
+      if (document.getElementById('form').style.top === "0px") {
         hideForm();
       } else {
         document.getElementById('form').style.top = 0 + "px";
-        document.getElementById('chevron').style.webkitTransform = "rotate(0turn)";
+        var rotate = "rotate(0turn)";
+        document.getElementById('chevron').style.webkitTransform = rotate;
       }
-    }
+    };
 
     $(document).on('click', '#hide-show', function(){
       showHideForm();
     });
-  }
+  };
 }
