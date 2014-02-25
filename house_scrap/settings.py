@@ -20,7 +20,7 @@ ITEM_PIPELINES = [
   ]
 
 
-MONGODB_URI = 'mongodb://127.0.0.1:3002/'
+MONGODB_URI = 'mongodb://127.0.0.1:3001/'
 MONGODB_DATABASE = 'meteor'
 
 MONGODB_COLLECTION = 'houses'
