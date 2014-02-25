@@ -8,6 +8,11 @@ import datetime
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/topics/item-pipeline.html
 
+def unix_time(dt):
+    epoch = datetime.datetime.utcfromtimestamp(0)
+    delta = dt - epoch
+    return delta.total_seconds()
+
 class DescHashPipeline(object):
   def process_item(self, item, spider):
     description = ""
@@ -37,10 +42,10 @@ class PricePipeline(object):
 class DatePipeline(object):
   def process_item(self, item, spider):
     if re.match("Hoje", item['publication']):
-      item['publication'] = datetime.date.today().strftime("%d-%m-%Y")
-
-    if re.match("Ontem", item['publication']):
-      item['publication'] = (datetime.date.today() - datetime.timedelta(1)).strftime("%d-%m-%Y")
-
+      item['publication'] = unix_time(datetime.datetime.today())
+    elif re.match("Ontem", item['publication']):
+      item['publication'] = unix_time(datetime.datetime.today() - datetime.timedelta(1))
+    else:
+      item['publication'] = unix_time(datetime.datetime.strptime(item['publication'], "%d-%m-%Y"))
     return item
 

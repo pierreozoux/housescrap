@@ -176,6 +176,12 @@ _.extend(House.prototype, {
       classStar = "fa-star-o";
     }
 
+    var rawDate = new Date(this.publication*1000);
+    month = rawDate.getMonth() + 1;
+    day = rawDate.getDate();
+    year = rawDate.getFullYear();
+
+    var date = day + "-" + month + "-" + year;
     var contentString = '<div id="content">'+
     '<div id="siteNotice">'+
     '</div>'+
@@ -200,7 +206,7 @@ _.extend(House.prototype, {
     '</br>Estado:            '+
     this.state+
     '</br>Publication date:  '+
-    this.publication+
+    date+
     '</br></br>'+
     '<div id="slide-container"></div>'
     '</p>'+
