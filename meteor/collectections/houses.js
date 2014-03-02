@@ -72,7 +72,8 @@ _.extend(House.prototype, {
       house.popupContent(),
       {
         maxWidth: 240,
-        offset: [-14, -22]
+        offset: [-14, -22],
+        autoPanPadding: [30, 30]
       }
     );
 
