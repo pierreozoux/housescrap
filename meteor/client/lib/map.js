@@ -1,17 +1,4 @@
 if (Meteor.isClient) {
-
-  $( window ).resize(function() {
-    // resize map
-    var height = window.innerHeight;
-    var width = window.innerWidth;
-    document.getElementById('map').style.height = height+"px";
-    document.getElementById('map').style.width = width+"px";
-
-    // put the form div in the center
-    document.getElementById("form").style.left = ((width - 460)/2) + "px";
-    document.getElementById("data-store").style.left = ((width - 400)/2) + "px";
-  });
-
   setBounds = function(){
     Session.set("south", window.map.getBounds().getSouth());
     Session.set("north", window.map.getBounds().getNorth());
