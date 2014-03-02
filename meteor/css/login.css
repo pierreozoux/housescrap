@@ -42,7 +42,26 @@
 
 #google {
   margin-top: 20px;
-  cursor: pointer;
+  background: url(images/google.png) no-repeat;;
+  height: 54px;
+  width: 246px;
+  display: block;
+}
+
+#google:hover {
+  margin-top: 20px;
+  background: url(images/google-hover.png) no-repeat;;
+  height: 54px;
+  width: 246px;
+  display: block;
+}
+
+#google:active {
+  margin-top: 20px;
+  background: url(images/google-active.png) no-repeat;;
+  height: 54px;
+  width: 246px;
+  display: block;
 }
 
 .button-warning {

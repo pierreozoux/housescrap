@@ -43,25 +43,25 @@
 </template>
 
 <template name="login">
-  <a id="sign-in-button" class="pure-button button-sign-in" href="#open" onclick="showLogin()">
+  <a id="sign-in-button" class="pure-button button-sign-in" href="#" onclick="showLogin()">
     Sign in
   </a>
   <div id="login" class="form-div">
-    <a class="close-button" href="#close" onclick="hideLogin()">×</a>
+    <a class="close-button" href="#" onclick="hideLogin()">×</a>
     In order to save your <b>favorited</b> and <b>trashed</b> houses, please sign in with your Google account.
-    <center><img id="google" src="images/google.png" onclick="auth()"></center>
+    <center><a href="#" id="google" onclick="auth()"></a></center>
   </div>
 </template>
 
 <template name="about">
   <div id="about-button">
-    <a id="open-about" href="#open" onclick="showAbout()">
+    <a id="open-about" href="#" onclick="showAbout()">
       About
       <i id="chevron-about" class="fa fa-chevron-circle-up"></i>
     </a>
   </div>
   <div id="about">
-    <a class="close-button" href="#close" onclick="hideAbout()">×</a>
+    <a class="close-button" href="#" onclick="hideAbout()">×</a>
     <h1>About</h1>
     </br>
     Here you'll be able to search for a lovely house. It's as simple as it can be, just decide the minimum number of <b>rooms</b>, the <b>price</b> range, and Bam! Then you can <b>favorit</b> or <b>trash</b> the houses as you like. You'll need to connect to access this feature though. Just click on the login button on top right corner.
