@@ -1,7 +1,6 @@
 #about {
   width: 400px;
-  height: 100px;
-  bottom: -120px;
+  bottom: -500px;
   z-index: 1001;
   background-color: #FFFFFF;
   position: absolute;
@@ -11,9 +10,15 @@
   transition-timing-function:ease-in-out;
   border-radius:10px;
   padding: 10px;
+  text-decoration: none;
 }
 
-.close-button {
+#about a {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+#about .close-button {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -33,16 +38,14 @@
   float: left;
   z-index: 1010;
   height: 20px;
-  left: 100px;
+  left: -100px;
   bottom:0px;
   padding: 0px;
-  text-decoration: none;
-  color: black;
   font-size: 17px;
   width: 65px;
 }
 
-a {
+#about-button, a {
   text-decoration: none;
   color: black;
 }
