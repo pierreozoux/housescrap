@@ -113,21 +113,12 @@ if (Meteor.isClient) {
     };
 
     showLogin = function() {
-      $("#background-popup").unbind(
-        "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd"
-      );
-      document.getElementById('background-popup').style.visibility = "visible";
+      showBackground();
       document.getElementById('data-store').style.top = 0+"px";
-      document.getElementById('background-popup').style.opacity = 1;
     };
 
     hideLogin = function() {
-      document.getElementById('background-popup').style.opacity = 0;
-      $("#background-popup").bind(
-        "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd",
-        function() {
-        document.getElementById('background-popup').style.visibility = "hidden";
-      });
+      hideBackground();
       document.getElementById('data-store').style.top = -172+"px";
     };
   });
