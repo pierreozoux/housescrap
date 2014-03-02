@@ -48,6 +48,6 @@ if (Meteor.isClient) {
 
     // put the about div in the center
     document.getElementById("about").style.left = ((width - 400)/2) + "px";
-    document.getElementById("about-button").style.left = ((width - 100)/2) + "px";
+    document.getElementById("about-button").style.left = ((width - 65)/2) + "px";
   });
 }

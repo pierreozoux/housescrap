@@ -32,17 +32,14 @@
   position: absolute;
   float: left;
   z-index: 1010;
-  -webkit-transition: top 0.5s;
-  transition: 1s;
-  transition-timing-function:ease-in-out;
   height: 20px;
   left: 100px;
   bottom:0px;
   padding: 0px;
-  width: 200px;
   text-decoration: none;
   color: black;
   font-size: 17px;
+  width: 65px;
 }
 
 a {
