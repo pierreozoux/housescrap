@@ -16,6 +16,7 @@ sudo pip install "ScrapyMongoDB"
 gem install serve-this
 sudo python setup.py install
 # install meteor
+# install meteorite
 ````
 Usage
 =====
