@@ -5,7 +5,7 @@
 <body>
   {{> form}}
   {{> map}}
-  {{> data-store}}
+  {{> login}}
   {{> about}}
   <div id="background-popup"></div>
 </body>
@@ -42,9 +42,12 @@
   </div>
 </template>
 
-<template name="data-store">
-  <div id="data-store" class="form-div">
-    In order to save your preferences, please login with your Google account.
+<template name="login">
+  <a id="sign-in-button" class="pure-button button-sign-in" href="#open" onclick="showLogin()">
+    Sign in
+  </a>
+  <div id="login" class="form-div">
+    In order to save your <b>favorited</b> and <b>trashed</b> houses, please sign in with your Google account.
     <center><img id="google" src="images/google.png" onclick="auth()"></center>
   </div>
 </template>

@@ -26,12 +26,11 @@ body, html {
   position: absolute;
   float: left;
   z-index: 110;
-  -webkit-transition: top 0.5s;
-  transition: 1s;
+  transition: 0.5s;
+  transition-timing-function:ease-in-out;
   background-color: rgba(256,256,256,0.9);
   border-bottom-right-radius:10px;
   border-bottom-left-radius:10px;
-  transition-timing-function:ease-in-out;
 }
 
 #hide-show {
@@ -129,3 +128,16 @@ label {
   background: -moz-linear-gradient(left, #00FF00, yellow, red) !important; /* For Firefox 3.6 to 15 */
   background: linear-gradient(left, #00FF00, yellow, red) !important; /* Standard syntax */
 }
+
+#background-popup {
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  position: absolute;
+  transition: 1s;
+  z-index: 1000;
+  background-color: rgba(256,256,256,0.8);
+  visibility: hidden;
+  opacity: 0;
+}
+

@@ -1,0 +1,35 @@
+#sign-in-button {
+  position: absolute;
+  float: left;
+  z-index: 1010;
+  right: 10px;
+  top: 10px;
+  border-radius: 5px;
+  transition: 0.5s;
+  transition-timing-function:ease-in-out;
+}
+
+.button-sign-in {
+  background: rgb(66, 184, 221); /* this is a light blue */
+}
+
+.button-sign-out {
+}
+
+#login {
+  width: 300px;
+  top: -500px;
+  padding: 20px;
+  z-index: 1001;
+  background-color: #FFFFFF;
+}
+
+#google {
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+    margin-top: 10px;
+}

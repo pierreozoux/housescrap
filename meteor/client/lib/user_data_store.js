@@ -7,12 +7,7 @@ if (Meteor.isClient) {
     Nimbus.Auth.authorized_callback = function() {
       HousesPreferences = Nimbus.Model.setup("Houses", ["desc_hash", "status"]);
       console.log("authentication finished o/");
-      var dataStoreHtml = "You are now Logged in!" +
-        "</br><center>" +
-        "<button type='button' class='pure-button button-warning'" +
-        "onclick='auth()'>Log out!</button></center>";
-      document.getElementById("data-store").innerHTML = dataStoreHtml;
-      hideLogin();
+      signIn();
       if (window.actionPending === "favorit") {
         favorit(window.housePending);
       } else if (window.actionPending === "delete") {
@@ -50,11 +45,7 @@ if (Meteor.isClient) {
     logOut = function() {
       Nimbus.Auth.logout();
       console.log("Logged Out");
-      var dataStoreHtml = "In order to save your preferences, " +
-        "please login with your Google account." +
-        "<center><img id='google' src='images/google.png'" +
-        " onclick='auth()''></center>";
-      document.getElementById("data-store").innerHTML = dataStoreHtml;
+      signOut();
     };
 
     auth = function() {
@@ -110,17 +101,6 @@ if (Meteor.isClient) {
         window.housePending = desc_hash;
         showLogin();
       }
-    };
-
-    showLogin = function() {
-      showBackground();
-      document.getElementById('data-store').style.top = 0+"px";
-      document.getElementById('background-popup').onclick= hideLogin()
-    };
-
-    hideLogin = function() {
-      hideBackground();
-      document.getElementById('data-store').style.top = -172+"px";
     };
   });
 }
