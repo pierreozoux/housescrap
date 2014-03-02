@@ -115,6 +115,7 @@ if (Meteor.isClient) {
     showLogin = function() {
       showBackground();
       document.getElementById('data-store').style.top = 0+"px";
+      document.getElementById('background-popup').onclick= hideLogin()
     };
 
     hideLogin = function() {
