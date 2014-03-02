@@ -35,6 +35,7 @@ _.extend(House.prototype, {
       marker._icon.style.zIndex = 1000;
     }
     marker._popup.setContent(house.popupContent(true));
+    marker.house.slideshow(0);
   },
   unsetAsFavorit: function () {
     marker = window.markers[this.desc_hash];
@@ -43,6 +44,7 @@ _.extend(House.prototype, {
       marker._icon.style.zIndex = 100;
     }
     marker._popup.setContent(house.popupContent());
+    marker.house.slideshow(0);
   },
   addToMap: function () {
     var offsetLat = 0;
