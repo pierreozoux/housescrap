@@ -34,7 +34,7 @@ _.extend(House.prototype, {
       marker._icon.style.background = "#FF99FF";
       marker._icon.style.zIndex = 1000;
     }
-    marker._popup.setContent(house.popupContent(true));
+    marker._popup.setContent(this.popupContent(true));
     marker.house.slideshow(0);
   },
   unsetAsFavorit: function () {
@@ -43,7 +43,7 @@ _.extend(House.prototype, {
       marker._icon.style.background = "#FFFFFF";
       marker._icon.style.zIndex = 100;
     }
-    marker._popup.setContent(house.popupContent());
+    marker._popup.setContent(this.popupContent());
     marker.house.slideshow(0);
   },
   addToMap: function () {
