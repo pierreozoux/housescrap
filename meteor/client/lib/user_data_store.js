@@ -11,7 +11,7 @@ if (Meteor.isClient) {
       if (window.actionPending === "favorit") {
         favorit(window.housePending);
       } else if (window.actionPending === "delete") {
-        remove(window.housePending);
+        trash(window.housePending);
       }
       window.actionPending = null;
       window.housePending = null;
@@ -66,7 +66,7 @@ if (Meteor.isClient) {
       console.log("Connect Google....");
     };
 
-    remove = function(desc_hash) {
+    trash = function(desc_hash) {
       if (Nimbus.Auth.authorized()){
         if (! HousesPreferences.findByAttribute("desc_hash", desc_hash)){
           HousesPreferences.create({
@@ -75,7 +75,7 @@ if (Meteor.isClient) {
           });
           Houses.findOne({desc_hash: desc_hash}).removeFromMap();
         }
-      }else {
+      } else {
         window.actionPending = "delete";
         window.housePending = desc_hash;
         showLogin();
@@ -96,7 +96,7 @@ if (Meteor.isClient) {
           HousesPreferences.findByAttribute({"desc_hash": desc_hash}).destroy();
           Houses.findOne({desc_hash: desc_hash}).unsetAsFavorit();
         }
-      }else {
+      } else {
         window.actionPending = "favorit";
         window.housePending = desc_hash;
         showLogin();

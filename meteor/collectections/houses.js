@@ -34,26 +34,15 @@ _.extend(House.prototype, {
       marker._icon.style.background = "#FF99FF";
       marker._icon.style.zIndex = 1000;
     }
-    if (marker._popup._isOpen) {
-      starClass = this.desc_hash + '-star';
-      document.getElementById(starClass).className = "fa fa-star";
-    }
-    marker.bindPopup(
-      house.popupContent(true),
-      {
-        maxWidth: 240,
-        offset: [-14, -22]
-      }
-    );
+    marker._popup.setContent(house.popupContent(true));
   },
   unsetAsFavorit: function () {
     marker = window.markers[this.desc_hash];
-    if (marker){
+    if (marker) {
       marker._icon.style.background = "#FFFFFF";
       marker._icon.style.zIndex = 100;
     }
-    starClass = this.desc_hash + '-star';
-    document.getElementById(starClass).className = "fa fa-star-o";
+    marker._popup.setContent(house.popupContent());
   },
   addToMap: function () {
     var offsetLat = 0;
@@ -195,7 +184,7 @@ _.extend(House.prototype, {
     '<i id="'+this.desc_hash+'-star" class="fa ' + classStar + '" onclick="favorit(\''+
     this.desc_hash+
     '\')"></i>'+
-    '<i class="fa fa-trash-o" onclick="remove(\''+
+    '<i class="fa fa-trash-o" onclick="trash(\''+
     this.desc_hash+
     '\')"></i>'+
     '</h1>'+
