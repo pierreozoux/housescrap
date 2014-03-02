@@ -24,6 +24,22 @@
   background-color: #FFFFFF;
 }
 
+#login .close-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 4px 4px 0 0;
+  text-align: center;
+  width: 18px;
+  height: 14px;
+  font: 16px/14px Tahoma, Verdana, sans-serif;
+  color: #c3c3c3;
+  text-decoration: none;
+  font-weight: bold;
+  background: transparent;
+}
+
+
 #google {
   margin-top: 20px;
   cursor: pointer;
