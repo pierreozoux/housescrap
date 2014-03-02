@@ -46,6 +46,28 @@ if (Meteor.isClient) {
       Nimbus.Auth.logout();
       console.log("Logged Out");
       signOut();
+
+      // remove houses
+      HousesPreferences.findAllByAttribute(
+        "status",
+        "removed"
+      ).forEach(function(housePreference){
+        house = Houses.findOne({desc_hash: housePreference.desc_hash});
+        if (house){
+          house.addToMap();
+        }
+      });
+
+      // favorit houses
+      HousesPreferences.findAllByAttribute(
+        "status",
+        "favorit"
+      ).forEach(function(housePreference){
+        house = Houses.findOne({desc_hash: housePreference.desc_hash});
+        if (house){
+          house.unsetAsFavorit();
+        }
+      });
     };
 
     auth = function() {
