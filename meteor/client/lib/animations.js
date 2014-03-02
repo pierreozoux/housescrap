@@ -17,7 +17,6 @@ if (Meteor.isClient) {
   };
 
   hideAbout = function() {
-    console.log("ovubhreoin");
     hideBackground();
     document.getElementById("about").style.bottom = -document.getElementById("about").clientHeight + "px";
     $("background-popup").off( "click", hideAbout);
