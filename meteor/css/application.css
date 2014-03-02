@@ -36,11 +36,12 @@ body, html {
 
 #hide-show {
   top: 80px;
-  width: 30px;
-  height: 25px;
+  width: 21px;
+  height: 21px;
   left: 380px;
-  padding-top: 5px;
+  padding: 2px;
   cursor: pointer;
+  font-size: 17px;
 }
 
 #connexion {
