@@ -6,6 +6,8 @@
   {{> form}}
   {{> map}}
   {{> data-store}}
+  {{> about}}
+  <div id="background-popup"></div>
 </body>
 
 <template name="map">
@@ -41,9 +43,21 @@
 </template>
 
 <template name="data-store">
-  <div id="background-popup" onclick="hideLogin()"></div>
   <div id="data-store" class="form-div">
     In order to save your preferences, please login with your Google account.
     <center><img id="google" src="images/google.png" onclick="auth()"></center>
+  </div>
+</template>
+
+<template name="about">
+  <div id="about-button">
+    <a id="open-about" href="#open" onclick="showAbout()">
+      About
+      <i id="chevron-about" class="fa fa-chevron-circle-up"></i>
+    </a>
+  </div>
+  <div id="about">
+    <a class="close-button" href="#close" onclick="hideAbout()">×</a>
+    This is a great application!
   </div>
 </template>
