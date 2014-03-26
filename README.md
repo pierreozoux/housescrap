@@ -42,8 +42,5 @@ scrapy shell http://www.custojusto.pt/Lisboa\?ca\=14_s\&th\=1\&q\=\&cg\=1020\&w\
 
 ToDo
 ====
-- about page to explain the project/ bio attitude
-- automatise house cleaning in the database
-- clean houses when older than 1 momth
 - clean houses from user data_store
 - add pane for description
