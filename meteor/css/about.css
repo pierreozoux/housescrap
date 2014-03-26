@@ -5,7 +5,7 @@
   background-color: #FFFFFF;
   position: absolute;
   float: left;
-  -webkit-transition: top 0.5s;
+  -webkit-transition: top 1s;
   transition: 1s;
   transition-timing-function:ease-in-out;
   border-radius:10px;
