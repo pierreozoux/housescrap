@@ -19,7 +19,8 @@ if (Meteor.isClient) {
   showAbout = function() {
     hideLogin();
     showBackground();
-    document.getElementById("about").style.bottom = 200 + "px";
+    var height = window.innerHeight;
+    document.getElementById("about").style.bottom = ((height - document.getElementById("about").clientHeight)/2) + "px";
     $('#background-popup').on( "click", hideAbout);
     $('#open-about').on( "click", hideAbout);
     var rotate = "rotate(0.5turn)";
